@@ -117,8 +117,7 @@
             },
             {
               "id": "module-2-simulation/gazebo-setup",
-              "path": "/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup",
-              "sidebar": "tutorialSidebar"
+              "path": "/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup"
             },
             {
               "id": "module-2-simulation/overview",
@@ -132,16 +131,17 @@
             },
             {
               "id": "module-2-simulation/unity-integration",
-              "path": "/Humanoid-robotics-book/docs/module-2-simulation/unity-integration",
-              "sidebar": "tutorialSidebar"
+              "path": "/Humanoid-robotics-book/docs/module-2-simulation/unity-integration"
             },
             {
               "id": "module-2-simulation/week-6-gazebo-setup",
-              "path": "/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup"
+              "path": "/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "module-2-simulation/week-7-unity-integration",
-              "path": "/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration"
+              "path": "/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "module-3-isaac/assignments",

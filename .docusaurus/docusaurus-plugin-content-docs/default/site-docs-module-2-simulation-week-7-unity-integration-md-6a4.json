@@ -11,5 +11,14 @@
   "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-2-simulation/week-7-unity-integration.md",
   "tags": [],
   "version": "current",
-  "frontMatter": {}
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 6: Gazebo Environment Setup",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup"
+  },
+  "next": {
+    "title": "Sensor Simulation in Robotics",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/sensor-simulation"
+  }
 }

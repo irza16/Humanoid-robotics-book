@@ -22,14 +22,5 @@
       "robotics",
       "digital twin"
     ]
-  },
-  "sidebar": "tutorialSidebar",
-  "previous": {
-    "title": "Gazebo Setup",
-    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup"
-  },
-  "next": {
-    "title": "Sensor Simulation in Robotics",
-    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/sensor-simulation"
   }
 }

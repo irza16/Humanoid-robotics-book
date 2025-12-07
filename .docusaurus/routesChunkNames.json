@@ -1,15 +1,15 @@
 {
-  "/Humanoid-robotics-book/docs-b18": {
+  "/Humanoid-robotics-book/docs-5e4": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/Humanoid-robotics-book/docs-8b2": {
+  "/Humanoid-robotics-book/docs-5bc": {
     "__comp": "a7bd4aaa",
     "__props": "daaee4af"
   },
-  "/Humanoid-robotics-book/docs-ecf": {
+  "/Humanoid-robotics-book/docs-2d3": {
     "__comp": "a94703ab"
   },
   "/Humanoid-robotics-book/docs/appendix/glossary-214": {
@@ -96,7 +96,7 @@
     "__comp": "17896441",
     "content": "04dcb736"
   },
-  "/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup-cb5": {
+  "/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup-93f": {
     "__comp": "17896441",
     "content": "48342822"
   },
@@ -108,15 +108,15 @@
     "__comp": "17896441",
     "content": "568212e4"
   },
-  "/Humanoid-robotics-book/docs/module-2-simulation/unity-integration-135": {
+  "/Humanoid-robotics-book/docs/module-2-simulation/unity-integration-68c": {
     "__comp": "17896441",
     "content": "acb42579"
   },
-  "/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup-249": {
+  "/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup-dc7": {
     "__comp": "17896441",
     "content": "1e766af2"
   },
-  "/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration-ea0": {
+  "/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration-63e": {
     "__comp": "17896441",
     "content": "6a4184b1"
   },
@@ -163,5 +163,12 @@
   "/Humanoid-robotics-book/docs/module-4-vla/week13-capstone-79e": {
     "__comp": "17896441",
     "content": "19884ad1"
+  },
+  "/Humanoid-robotics-book/-45b": {
+    "__comp": "c4f5d8e4",
+    "__context": {
+      "plugin": "a7456010"
+    },
+    "config": "5e9f5e1a"
   }
 }

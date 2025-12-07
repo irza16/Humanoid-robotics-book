@@ -22,14 +22,5 @@
       "robotics",
       "ros2"
     ]
-  },
-  "sidebar": "tutorialSidebar",
-  "previous": {
-    "title": "Module 2: The Digital Twin - Gazebo & Unity",
-    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/overview"
-  },
-  "next": {
-    "title": "Unity Integration",
-    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/unity-integration"
   }
 }

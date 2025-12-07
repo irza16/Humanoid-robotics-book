@@ -11,5 +11,14 @@
   "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-2-simulation/week-6-gazebo-setup.md",
   "tags": [],
   "version": "current",
-  "frontMatter": {}
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 2: The Digital Twin - Gazebo & Unity",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/overview"
+  },
+  "next": {
+    "title": "Week 7: Unity Integration for Advanced Rendering",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration"
+  }
 }

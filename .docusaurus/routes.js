@@ -4,15 +4,15 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 export default [
   {
     path: '/Humanoid-robotics-book/docs',
-    component: ComponentCreator('/Humanoid-robotics-book/docs', 'b18'),
+    component: ComponentCreator('/Humanoid-robotics-book/docs', '5e4'),
     routes: [
       {
         path: '/Humanoid-robotics-book/docs',
-        component: ComponentCreator('/Humanoid-robotics-book/docs', '8b2'),
+        component: ComponentCreator('/Humanoid-robotics-book/docs', '5bc'),
         routes: [
           {
             path: '/Humanoid-robotics-book/docs',
-            component: ComponentCreator('/Humanoid-robotics-book/docs', 'ecf'),
+            component: ComponentCreator('/Humanoid-robotics-book/docs', '2d3'),
             routes: [
               {
                 path: '/Humanoid-robotics-book/docs/appendix/glossary',
@@ -142,9 +142,8 @@ export default [
               },
               {
                 path: '/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup',
-                component: ComponentCreator('/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup', 'cb5'),
-                exact: true,
-                sidebar: "tutorialSidebar"
+                component: ComponentCreator('/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup', '93f'),
+                exact: true
               },
               {
                 path: '/Humanoid-robotics-book/docs/module-2-simulation/overview',
@@ -160,19 +159,20 @@ export default [
               },
               {
                 path: '/Humanoid-robotics-book/docs/module-2-simulation/unity-integration',
-                component: ComponentCreator('/Humanoid-robotics-book/docs/module-2-simulation/unity-integration', '135'),
+                component: ComponentCreator('/Humanoid-robotics-book/docs/module-2-simulation/unity-integration', '68c'),
+                exact: true
+              },
+              {
+                path: '/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup',
+                component: ComponentCreator('/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup', 'dc7'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup',
-                component: ComponentCreator('/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup', '249'),
-                exact: true
-              },
-              {
                 path: '/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration',
-                component: ComponentCreator('/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration', 'ea0'),
-                exact: true
+                component: ComponentCreator('/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration', '63e'),
+                exact: true,
+                sidebar: "tutorialSidebar"
               },
               {
                 path: '/Humanoid-robotics-book/docs/module-3-isaac/assignments',
@@ -245,6 +245,11 @@ export default [
         ]
       }
     ]
+  },
+  {
+    path: '/Humanoid-robotics-book/',
+    component: ComponentCreator('/Humanoid-robotics-book/', '45b'),
+    exact: true
   },
   {
     path: '*',
