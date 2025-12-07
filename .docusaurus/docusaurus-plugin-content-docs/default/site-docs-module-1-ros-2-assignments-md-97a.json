@@ -1,0 +1,35 @@
+{
+  "id": "module-1-ros2/assignments",
+  "title": "Assignments",
+  "description": "Assignments for Module 1: ROS 2 Nervous System.",
+  "source": "@site/docs/module-1-ros2/assignments.md",
+  "sourceDirName": "module-1-ros2",
+  "slug": "/module-1-ros2/assignments",
+  "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/assignments",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-1-ros2/assignments.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5,
+    "title": "Assignments",
+    "description": "Assignments for Module 1: ROS 2 Nervous System.",
+    "keywords": [
+      "ros2",
+      "assignments",
+      "projects",
+      "exercises"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 5: Control and AI",
+    "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/week-5-control-ai"
+  },
+  "next": {
+    "title": "Capstone: Nervous System",
+    "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/capstone-nervous-system"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "module-2-simulation/assignments",
+  "title": "Assignments",
+  "description": "Assignments for Module 2: Digital Twin (Simulation).",
+  "source": "@site/docs/module-2-simulation/assignments.md",
+  "sourceDirName": "module-2-simulation",
+  "slug": "/module-2-simulation/assignments",
+  "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/assignments",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-2-simulation/assignments.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5,
+    "title": "Assignments",
+    "description": "Assignments for Module 2: Digital Twin (Simulation).",
+    "keywords": [
+      "simulation",
+      "assignments",
+      "projects",
+      "exercises"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Sensor Simulation",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/sensor-simulation"
+  },
+  "next": {
+    "title": "Overview",
+    "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/overview"
+  }
+}

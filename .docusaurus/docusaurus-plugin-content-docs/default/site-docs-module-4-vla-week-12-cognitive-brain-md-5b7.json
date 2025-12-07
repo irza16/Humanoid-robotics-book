@@ -1,0 +1,41 @@
+{
+  "id": "module-4-vla/week12-cognitive-brain",
+  "title": "Week 12: The Cognitive Brain (LLMs)",
+  "description": "Explore speech recognition with OpenAI Whisper, prompt engineering for robots, connecting LLMs to ROS 2, and JSON output parsing with safety guardrails.",
+  "source": "@site/docs/module-4-vla/week12-cognitive-brain.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/week12-cognitive-brain",
+  "permalink": "/Humanoid-robotics-book/docs/module-4-vla/week12-cognitive-brain",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-4-vla/week12-cognitive-brain.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Week 12: The Cognitive Brain (LLMs)",
+    "description": "Explore speech recognition with OpenAI Whisper, prompt engineering for robots, connecting LLMs to ROS 2, and JSON output parsing with safety guardrails.",
+    "keywords": [
+      "week12",
+      "cognitive brain",
+      "llm",
+      "whisper",
+      "stt",
+      "prompt engineering",
+      "ros2",
+      "function calling",
+      "json",
+      "safety"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 11: Humanoid Manipulation & Kinematics",
+    "permalink": "/Humanoid-robotics-book/docs/module-4-vla/week11-manipulation"
+  },
+  "next": {
+    "title": "Week 13: Capstone Integration",
+    "permalink": "/Humanoid-robotics-book/docs/module-4-vla/week13-capstone"
+  }
+}

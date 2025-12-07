@@ -1,0 +1,36 @@
+{
+  "id": "module-1-ros2/week-5-control-ai",
+  "title": "Week 5: Control and AI",
+  "description": "Controlling robot behavior and integrating AI with ROS 2.",
+  "source": "@site/docs/module-1-ros2/week-5-control-ai.md",
+  "sourceDirName": "module-1-ros2",
+  "slug": "/module-1-ros2/week-5-control-ai",
+  "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/week-5-control-ai",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-1-ros2/week-5-control-ai.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Week 5: Control and AI",
+    "description": "Controlling robot behavior and integrating AI with ROS 2.",
+    "keywords": [
+      "ros2",
+      "control",
+      "ai",
+      "navigation",
+      "perception"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 4: Sensors and TF2",
+    "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/week-4-sensors-tf"
+  },
+  "next": {
+    "title": "Assignments",
+    "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/assignments"
+  }
+}

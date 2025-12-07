@@ -1,0 +1,39 @@
+{
+  "id": "appendix/glossary",
+  "title": "Glossary",
+  "description": "Definitions of key terms and acronyms used throughout the book.",
+  "source": "@site/docs/appendix/glossary.md",
+  "sourceDirName": "appendix",
+  "slug": "/appendix/glossary",
+  "permalink": "/Humanoid-robotics-book/docs/appendix/glossary",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/appendix/glossary.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Glossary",
+    "description": "Definitions of key terms and acronyms used throughout the book.",
+    "keywords": [
+      "glossary",
+      "definitions",
+      "terms",
+      "acronyms",
+      "robotics",
+      "ai",
+      "ros2",
+      "vla"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Troubleshooting",
+    "permalink": "/Humanoid-robotics-book/docs/appendix/troubleshooting"
+  },
+  "next": {
+    "title": "Additional Resources",
+    "permalink": "/Humanoid-robotics-book/docs/appendix/resources"
+  }
+}

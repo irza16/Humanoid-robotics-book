@@ -1,0 +1,40 @@
+{
+  "id": "hardware-guide/cloud-vs-onpremise",
+  "title": "Cloud vs. On-Premise Deployment",
+  "description": "Discusses the trade-offs between cloud-based and on-premise deployment for robotics AI and simulation.",
+  "source": "@site/docs/hardware-guide/cloud-vs-onpremise.md",
+  "sourceDirName": "hardware-guide",
+  "slug": "/hardware-guide/cloud-vs-onpremise",
+  "permalink": "/Humanoid-robotics-book/docs/hardware-guide/cloud-vs-onpremise",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/hardware-guide/cloud-vs-onpremise.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Cloud vs. On-Premise Deployment",
+    "description": "Discusses the trade-offs between cloud-based and on-premise deployment for robotics AI and simulation.",
+    "keywords": [
+      "deployment",
+      "cloud",
+      "on-premise",
+      "infrastructure",
+      "iaas",
+      "paas",
+      "saas",
+      "simulation",
+      "ai"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Robot Lab Options",
+    "permalink": "/Humanoid-robotics-book/docs/hardware-guide/robot-options"
+  },
+  "next": {
+    "title": "Installation Guides",
+    "permalink": "/Humanoid-robotics-book/docs/appendix/installation-guides"
+  }
+}

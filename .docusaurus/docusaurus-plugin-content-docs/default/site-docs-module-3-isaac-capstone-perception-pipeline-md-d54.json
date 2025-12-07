@@ -1,0 +1,36 @@
+{
+  "id": "module-3-isaac/capstone-perception-pipeline",
+  "title": "Capstone: Perception Pipeline",
+  "description": "Capstone project for Module 3: Building a full perception pipeline in Isaac Sim.",
+  "source": "@site/docs/module-3-isaac/capstone-perception-pipeline.md",
+  "sourceDirName": "module-3-isaac",
+  "slug": "/module-3-isaac/capstone-perception-pipeline",
+  "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/capstone-perception-pipeline",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-3-isaac/capstone-perception-pipeline.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "sidebar_position": 6,
+    "title": "Capstone: Perception Pipeline",
+    "description": "Capstone project for Module 3: Building a full perception pipeline in Isaac Sim.",
+    "keywords": [
+      "isaac",
+      "capstone",
+      "project",
+      "perception",
+      "pipeline"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Assignments",
+    "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/assignments"
+  },
+  "next": {
+    "title": "Module 4: Vision-Language-Action (VLA) Overview",
+    "permalink": "/Humanoid-robotics-book/docs/module-4-vla/introduction"
+  }
+}

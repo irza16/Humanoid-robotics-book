@@ -1,0 +1,37 @@
+{
+  "id": "module-1-ros2/week-4-sensors-tf",
+  "title": "Week 4: Sensors and TF2",
+  "description": "Integrating sensors and managing coordinate frames with TF2.",
+  "source": "@site/docs/module-1-ros2/week-4-sensors-tf.md",
+  "sourceDirName": "module-1-ros2",
+  "slug": "/module-1-ros2/week-4-sensors-tf",
+  "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/week-4-sensors-tf",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-1-ros2/week-4-sensors-tf.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Week 4: Sensors and TF2",
+    "description": "Integrating sensors and managing coordinate frames with TF2.",
+    "keywords": [
+      "ros2",
+      "sensors",
+      "tf2",
+      "transforms",
+      "lidar",
+      "imu"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 3: ROS 2 Foundations",
+    "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/week-3-foundations"
+  },
+  "next": {
+    "title": "Week 5: Control and AI",
+    "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/week-5-control-ai"
+  }
+}

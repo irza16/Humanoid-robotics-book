@@ -1,0 +1,159 @@
+{
+  "/Humanoid-robotics-book/docs-940": {
+    "__comp": "5e95c892",
+    "__context": {
+      "plugin": "aba21aa0"
+    }
+  },
+  "/Humanoid-robotics-book/docs-140": {
+    "__comp": "a7bd4aaa",
+    "__props": "daaee4af"
+  },
+  "/Humanoid-robotics-book/docs-7df": {
+    "__comp": "a94703ab"
+  },
+  "/Humanoid-robotics-book/docs/appendix/glossary-214": {
+    "__comp": "17896441",
+    "content": "88884f83"
+  },
+  "/Humanoid-robotics-book/docs/appendix/installation-guides-40a": {
+    "__comp": "17896441",
+    "content": "96af2f35"
+  },
+  "/Humanoid-robotics-book/docs/appendix/resources-d3a": {
+    "__comp": "17896441",
+    "content": "c30d6c39"
+  },
+  "/Humanoid-robotics-book/docs/appendix/troubleshooting-91a": {
+    "__comp": "17896441",
+    "content": "85bc3609"
+  },
+  "/Humanoid-robotics-book/docs/foundations/core-subsystems-62d": {
+    "__comp": "17896441",
+    "content": "20136a33"
+  },
+  "/Humanoid-robotics-book/docs/foundations/future-trajectory-653": {
+    "__comp": "17896441",
+    "content": "960c9a5e"
+  },
+  "/Humanoid-robotics-book/docs/foundations/modern-examples-ad6": {
+    "__comp": "17896441",
+    "content": "4fe45533"
+  },
+  "/Humanoid-robotics-book/docs/foundations/overview-2aa": {
+    "__comp": "17896441",
+    "content": "07bd0345"
+  },
+  "/Humanoid-robotics-book/docs/foundations/what-is-humanoid-robotics-a90": {
+    "__comp": "17896441",
+    "content": "7a91f549"
+  },
+  "/Humanoid-robotics-book/docs/hardware-guide/cloud-vs-onpremise-089": {
+    "__comp": "17896441",
+    "content": "7ca2d305"
+  },
+  "/Humanoid-robotics-book/docs/hardware-guide/edge-kits-5c3": {
+    "__comp": "17896441",
+    "content": "43844f03"
+  },
+  "/Humanoid-robotics-book/docs/hardware-guide/robot-options-e35": {
+    "__comp": "17896441",
+    "content": "f191ee31"
+  },
+  "/Humanoid-robotics-book/docs/hardware-guide/workstation-specs-ebd": {
+    "__comp": "17896441",
+    "content": "52ce9391"
+  },
+  "/Humanoid-robotics-book/docs/intro-aa7": {
+    "__comp": "17896441",
+    "content": "0e384e19"
+  },
+  "/Humanoid-robotics-book/docs/module-1-ros2/assignments-e4b": {
+    "__comp": "17896441",
+    "content": "97ab79c0"
+  },
+  "/Humanoid-robotics-book/docs/module-1-ros2/capstone-nervous-system-1bf": {
+    "__comp": "17896441",
+    "content": "2c635e39"
+  },
+  "/Humanoid-robotics-book/docs/module-1-ros2/overview-45f": {
+    "__comp": "17896441",
+    "content": "9e7bbbd5"
+  },
+  "/Humanoid-robotics-book/docs/module-1-ros2/week-3-foundations-b01": {
+    "__comp": "17896441",
+    "content": "00604cf6"
+  },
+  "/Humanoid-robotics-book/docs/module-1-ros2/week-4-sensors-tf-342": {
+    "__comp": "17896441",
+    "content": "28032fb0"
+  },
+  "/Humanoid-robotics-book/docs/module-1-ros2/week-5-control-ai-97e": {
+    "__comp": "17896441",
+    "content": "3e7a9e7e"
+  },
+  "/Humanoid-robotics-book/docs/module-2-simulation/assignments-8d9": {
+    "__comp": "17896441",
+    "content": "04dcb736"
+  },
+  "/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup-cb5": {
+    "__comp": "17896441",
+    "content": "48342822"
+  },
+  "/Humanoid-robotics-book/docs/module-2-simulation/overview-bc3": {
+    "__comp": "17896441",
+    "content": "a5bd527b"
+  },
+  "/Humanoid-robotics-book/docs/module-2-simulation/sensor-simulation-fce": {
+    "__comp": "17896441",
+    "content": "568212e4"
+  },
+  "/Humanoid-robotics-book/docs/module-2-simulation/unity-integration-135": {
+    "__comp": "17896441",
+    "content": "acb42579"
+  },
+  "/Humanoid-robotics-book/docs/module-3-isaac/assignments-438": {
+    "__comp": "17896441",
+    "content": "e99e43c1"
+  },
+  "/Humanoid-robotics-book/docs/module-3-isaac/capstone-perception-pipeline-fbd": {
+    "__comp": "17896441",
+    "content": "d54997df"
+  },
+  "/Humanoid-robotics-book/docs/module-3-isaac/overview-1c5": {
+    "__comp": "17896441",
+    "content": "4808b1c8"
+  },
+  "/Humanoid-robotics-book/docs/module-3-isaac/week-10-navigation-5b1": {
+    "__comp": "17896441",
+    "content": "4a5d79b0"
+  },
+  "/Humanoid-robotics-book/docs/module-3-isaac/week-8-isaac-sim-18f": {
+    "__comp": "17896441",
+    "content": "29556dc8"
+  },
+  "/Humanoid-robotics-book/docs/module-3-isaac/week-9-perception-78b": {
+    "__comp": "17896441",
+    "content": "b9d60e00"
+  },
+  "/Humanoid-robotics-book/docs/module-4-vla/assignments-e31": {
+    "__comp": "17896441",
+    "content": "9455c18a"
+  },
+  "/Humanoid-robotics-book/docs/module-4-vla/introduction-654": {
+    "__comp": "17896441",
+    "content": "283d1c0a"
+  },
+  "/Humanoid-robotics-book/docs/module-4-vla/week11-manipulation-ab8": {
+    "__comp": "17896441",
+    "content": "e7048cc4"
+  },
+  "/Humanoid-robotics-book/docs/module-4-vla/week12-cognitive-brain-cbc": {
+    "__comp": "17896441",
+    "content": "5b745103"
+  },
+  "/Humanoid-robotics-book/docs/module-4-vla/week13-capstone-79e": {
+    "__comp": "17896441",
+    "content": "19884ad1"
+  }
+}

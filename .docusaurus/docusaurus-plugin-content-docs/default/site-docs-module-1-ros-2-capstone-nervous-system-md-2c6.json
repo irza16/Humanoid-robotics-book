@@ -1,0 +1,35 @@
+{
+  "id": "module-1-ros2/capstone-nervous-system",
+  "title": "Capstone: Nervous System",
+  "description": "Capstone project for Module 1: Building a complete ROS 2 nervous system.",
+  "source": "@site/docs/module-1-ros2/capstone-nervous-system.md",
+  "sourceDirName": "module-1-ros2",
+  "slug": "/module-1-ros2/capstone-nervous-system",
+  "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/capstone-nervous-system",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-1-ros2/capstone-nervous-system.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "sidebar_position": 6,
+    "title": "Capstone: Nervous System",
+    "description": "Capstone project for Module 1: Building a complete ROS 2 nervous system.",
+    "keywords": [
+      "ros2",
+      "capstone",
+      "project",
+      "nervous system"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Assignments",
+    "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/assignments"
+  },
+  "next": {
+    "title": "Overview",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/overview"
+  }
+}

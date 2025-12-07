@@ -1,0 +1,38 @@
+{
+  "id": "module-4-vla/introduction",
+  "title": "Module 4: Vision-Language-Action (VLA) Overview",
+  "description": "The convergence of Generative AI and Robotics. Build a Cognitive Pipeline for humanoid robots.",
+  "source": "@site/docs/module-4-vla/introduction.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/introduction",
+  "permalink": "/Humanoid-robotics-book/docs/module-4-vla/introduction",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-4-vla/introduction.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Module 4: Vision-Language-Action (VLA) Overview",
+    "description": "The convergence of Generative AI and Robotics. Build a Cognitive Pipeline for humanoid robots.",
+    "keywords": [
+      "vla",
+      "humanoid",
+      "robotics",
+      "generative ai",
+      "llm",
+      "ros2",
+      "capstone"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Capstone: Perception Pipeline",
+    "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/capstone-perception-pipeline"
+  },
+  "next": {
+    "title": "Week 11: Humanoid Manipulation & Kinematics",
+    "permalink": "/Humanoid-robotics-book/docs/module-4-vla/week11-manipulation"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "hardware-guide/workstation-specs",
+  "title": "Workstation Specifications",
+  "description": "Recommended specifications for a high-performance workstation for simulation and AI development.",
+  "source": "@site/docs/hardware-guide/workstation-specs.md",
+  "sourceDirName": "hardware-guide",
+  "slug": "/hardware-guide/workstation-specs",
+  "permalink": "/Humanoid-robotics-book/docs/hardware-guide/workstation-specs",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/hardware-guide/workstation-specs.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Workstation Specifications",
+    "description": "Recommended specifications for a high-performance workstation for simulation and AI development.",
+    "keywords": [
+      "hardware",
+      "workstation",
+      "specs",
+      "gpu",
+      "cpu",
+      "ram",
+      "nvidia"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 4: Assignments",
+    "permalink": "/Humanoid-robotics-book/docs/module-4-vla/assignments"
+  },
+  "next": {
+    "title": "Edge AI Kits",
+    "permalink": "/Humanoid-robotics-book/docs/hardware-guide/edge-kits"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "foundations/overview",
+  "title": "Module 0: Foundations Overview",
+  "description": "An introduction to the fundamental concepts of humanoid robotics and embodied AI.",
+  "source": "@site/docs/foundations/overview.md",
+  "sourceDirName": "foundations",
+  "slug": "/foundations/overview",
+  "permalink": "/Humanoid-robotics-book/docs/foundations/overview",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/foundations/overview.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Module 0: Foundations Overview",
+    "description": "An introduction to the fundamental concepts of humanoid robotics and embodied AI.",
+    "keywords": [
+      "foundations",
+      "humanoid robotics",
+      "overview",
+      "basics"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Introduction to Humanoid Robotics",
+    "permalink": "/Humanoid-robotics-book/docs/intro"
+  },
+  "next": {
+    "title": "What is Humanoid Robotics?",
+    "permalink": "/Humanoid-robotics-book/docs/foundations/what-is-humanoid-robotics"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "foundations/modern-examples",
+  "title": "Modern Examples of Humanoid Robots",
+  "description": "Showcasing cutting-edge humanoid robots from research and industry that are pushing the boundaries of what's possible.",
+  "source": "@site/docs/foundations/modern-examples.md",
+  "sourceDirName": "foundations",
+  "slug": "/foundations/modern-examples",
+  "permalink": "/Humanoid-robotics-book/docs/foundations/modern-examples",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/foundations/modern-examples.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Modern Examples of Humanoid Robots",
+    "description": "Showcasing cutting-edge humanoid robots from research and industry that are pushing the boundaries of what's possible.",
+    "keywords": [
+      "humanoid",
+      "robots",
+      "modern",
+      "examples",
+      "atlas",
+      "optimus",
+      "unitree",
+      "digit",
+      "nadine"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Core Subsystems of a Humanoid Robot",
+    "permalink": "/Humanoid-robotics-book/docs/foundations/core-subsystems"
+  },
+  "next": {
+    "title": "Future Trajectory of Humanoid Robotics",
+    "permalink": "/Humanoid-robotics-book/docs/foundations/future-trajectory"
+  }
+}

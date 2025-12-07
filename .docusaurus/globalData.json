@@ -1,0 +1,208 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/Humanoid-robotics-book/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/Humanoid-robotics-book/docs",
+          "mainDocId": "intro",
+          "docs": [
+            {
+              "id": "appendix/glossary",
+              "path": "/Humanoid-robotics-book/docs/appendix/glossary",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "appendix/installation-guides",
+              "path": "/Humanoid-robotics-book/docs/appendix/installation-guides",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "appendix/resources",
+              "path": "/Humanoid-robotics-book/docs/appendix/resources",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "appendix/troubleshooting",
+              "path": "/Humanoid-robotics-book/docs/appendix/troubleshooting",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "foundations/core-subsystems",
+              "path": "/Humanoid-robotics-book/docs/foundations/core-subsystems",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "foundations/future-trajectory",
+              "path": "/Humanoid-robotics-book/docs/foundations/future-trajectory",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "foundations/modern-examples",
+              "path": "/Humanoid-robotics-book/docs/foundations/modern-examples",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "foundations/overview",
+              "path": "/Humanoid-robotics-book/docs/foundations/overview",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "foundations/what-is-humanoid-robotics",
+              "path": "/Humanoid-robotics-book/docs/foundations/what-is-humanoid-robotics",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "hardware-guide/cloud-vs-onpremise",
+              "path": "/Humanoid-robotics-book/docs/hardware-guide/cloud-vs-onpremise",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "hardware-guide/edge-kits",
+              "path": "/Humanoid-robotics-book/docs/hardware-guide/edge-kits",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "hardware-guide/robot-options",
+              "path": "/Humanoid-robotics-book/docs/hardware-guide/robot-options",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "hardware-guide/workstation-specs",
+              "path": "/Humanoid-robotics-book/docs/hardware-guide/workstation-specs",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "intro",
+              "path": "/Humanoid-robotics-book/docs/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/assignments",
+              "path": "/Humanoid-robotics-book/docs/module-1-ros2/assignments",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/capstone-nervous-system",
+              "path": "/Humanoid-robotics-book/docs/module-1-ros2/capstone-nervous-system",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/overview",
+              "path": "/Humanoid-robotics-book/docs/module-1-ros2/overview",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/week-3-foundations",
+              "path": "/Humanoid-robotics-book/docs/module-1-ros2/week-3-foundations",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/week-4-sensors-tf",
+              "path": "/Humanoid-robotics-book/docs/module-1-ros2/week-4-sensors-tf",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/week-5-control-ai",
+              "path": "/Humanoid-robotics-book/docs/module-1-ros2/week-5-control-ai",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-simulation/assignments",
+              "path": "/Humanoid-robotics-book/docs/module-2-simulation/assignments",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-simulation/gazebo-setup",
+              "path": "/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-simulation/overview",
+              "path": "/Humanoid-robotics-book/docs/module-2-simulation/overview",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-simulation/sensor-simulation",
+              "path": "/Humanoid-robotics-book/docs/module-2-simulation/sensor-simulation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-simulation/unity-integration",
+              "path": "/Humanoid-robotics-book/docs/module-2-simulation/unity-integration",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-isaac/assignments",
+              "path": "/Humanoid-robotics-book/docs/module-3-isaac/assignments",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-isaac/capstone-perception-pipeline",
+              "path": "/Humanoid-robotics-book/docs/module-3-isaac/capstone-perception-pipeline",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-isaac/overview",
+              "path": "/Humanoid-robotics-book/docs/module-3-isaac/overview",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-isaac/week-10-navigation",
+              "path": "/Humanoid-robotics-book/docs/module-3-isaac/week-10-navigation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-isaac/week-8-isaac-sim",
+              "path": "/Humanoid-robotics-book/docs/module-3-isaac/week-8-isaac-sim",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-isaac/week-9-perception",
+              "path": "/Humanoid-robotics-book/docs/module-3-isaac/week-9-perception",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/assignments",
+              "path": "/Humanoid-robotics-book/docs/module-4-vla/assignments",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/introduction",
+              "path": "/Humanoid-robotics-book/docs/module-4-vla/introduction",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/week11-manipulation",
+              "path": "/Humanoid-robotics-book/docs/module-4-vla/week11-manipulation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/week12-cognitive-brain",
+              "path": "/Humanoid-robotics-book/docs/module-4-vla/week12-cognitive-brain",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/week13-capstone",
+              "path": "/Humanoid-robotics-book/docs/module-4-vla/week13-capstone",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/Humanoid-robotics-book/docs/intro",
+                "label": "intro"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

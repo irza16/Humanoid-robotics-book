@@ -1,0 +1,37 @@
+{
+  "id": "foundations/what-is-humanoid-robotics",
+  "title": "What is Humanoid Robotics?",
+  "description": "Exploring the definition, characteristics, and unique challenges of humanoid robots.",
+  "source": "@site/docs/foundations/what-is-humanoid-robotics.md",
+  "sourceDirName": "foundations",
+  "slug": "/foundations/what-is-humanoid-robotics",
+  "permalink": "/Humanoid-robotics-book/docs/foundations/what-is-humanoid-robotics",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/foundations/what-is-humanoid-robotics.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "What is Humanoid Robotics?",
+    "description": "Exploring the definition, characteristics, and unique challenges of humanoid robots.",
+    "keywords": [
+      "humanoid",
+      "robotics",
+      "definition",
+      "characteristics",
+      "bipedal",
+      "manipulation"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 0: Foundations Overview",
+    "permalink": "/Humanoid-robotics-book/docs/foundations/overview"
+  },
+  "next": {
+    "title": "Core Subsystems of a Humanoid Robot",
+    "permalink": "/Humanoid-robotics-book/docs/foundations/core-subsystems"
+  }
+}

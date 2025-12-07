@@ -1,0 +1,37 @@
+{
+  "id": "module-2-simulation/sensor-simulation",
+  "title": "Sensor Simulation",
+  "description": "Simulating sensors like LiDAR and cameras in Gazebo and Unity.",
+  "source": "@site/docs/module-2-simulation/sensor-simulation.md",
+  "sourceDirName": "module-2-simulation",
+  "slug": "/module-2-simulation/sensor-simulation",
+  "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/sensor-simulation",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-2-simulation/sensor-simulation.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Sensor Simulation",
+    "description": "Simulating sensors like LiDAR and cameras in Gazebo and Unity.",
+    "keywords": [
+      "simulation",
+      "sensors",
+      "lidar",
+      "camera",
+      "gazebo",
+      "unity"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Unity Integration",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/unity-integration"
+  },
+  "next": {
+    "title": "Assignments",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/assignments"
+  }
+}

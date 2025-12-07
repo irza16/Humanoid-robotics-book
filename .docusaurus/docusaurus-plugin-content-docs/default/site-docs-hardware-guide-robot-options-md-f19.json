@@ -1,0 +1,38 @@
+{
+  "id": "hardware-guide/robot-options",
+  "title": "Robot Lab Options",
+  "description": "Information on physical humanoid and quadruped robots suitable for advanced robotics labs.",
+  "source": "@site/docs/hardware-guide/robot-options.md",
+  "sourceDirName": "hardware-guide",
+  "slug": "/hardware-guide/robot-options",
+  "permalink": "/Humanoid-robotics-book/docs/hardware-guide/robot-options",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/hardware-guide/robot-options.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Robot Lab Options",
+    "description": "Information on physical humanoid and quadruped robots suitable for advanced robotics labs.",
+    "keywords": [
+      "hardware",
+      "robots",
+      "humanoid",
+      "quadruped",
+      "unitree",
+      "op3",
+      "tony pi"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Edge AI Kits",
+    "permalink": "/Humanoid-robotics-book/docs/hardware-guide/edge-kits"
+  },
+  "next": {
+    "title": "Cloud vs. On-Premise Deployment",
+    "permalink": "/Humanoid-robotics-book/docs/hardware-guide/cloud-vs-onpremise"
+  }
+}
