@@ -1,7 +1,7 @@
 {
   "id": "module-3-isaac/assignments",
-  "title": "Assignments",
-  "description": "Assignments for Module 3: Isaac AI Brain.",
+  "title": "Module 3 Assignments",
+  "description": "Overview",
   "source": "@site/docs/module-3-isaac/assignments.md",
   "sourceDirName": "module-3-isaac",
   "slug": "/module-3-isaac/assignments",
@@ -11,25 +11,14 @@
   "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-3-isaac/assignments.md",
   "tags": [],
   "version": "current",
-  "sidebarPosition": 5,
-  "frontMatter": {
-    "sidebar_position": 5,
-    "title": "Assignments",
-    "description": "Assignments for Module 3: Isaac AI Brain.",
-    "keywords": [
-      "isaac",
-      "assignments",
-      "projects",
-      "exercises"
-    ]
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Week 10: Navigation",
+    "title": "Week 10: Navigation and Mobility",
     "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/week-10-navigation"
   },
   "next": {
-    "title": "Capstone: Perception Pipeline",
+    "title": "Module 3 Capstone: End-to-End Perception Pipeline",
     "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/capstone-perception-pipeline"
   }
 }

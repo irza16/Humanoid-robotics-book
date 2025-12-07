@@ -43,8 +43,8 @@ const sidebars = {
       label: 'Module 2: Digital Twin (Simulation)',
       items: [
         'module-2-simulation/overview',
-        'module-2-simulation/gazebo-setup',
-        'module-2-simulation/unity-integration',
+        'module-2-simulation/week-6-gazebo-setup',
+        'module-2-simulation/week-7-unity-integration',
         'module-2-simulation/sensor-simulation',
         'module-2-simulation/assignments',
       ],

@@ -1,7 +1,7 @@
 {
   "id": "module-1-ros2/overview",
-  "title": "Overview",
-  "description": "Introduction to ROS 2 as the robotic nervous system.",
+  "title": "Module 1: The Robotic Nervous System (ROS 2)",
+  "description": "Overview",
   "source": "@site/docs/module-1-ros2/overview.md",
   "sourceDirName": "module-1-ros2",
   "slug": "/module-1-ros2/overview",
@@ -11,18 +11,7 @@
   "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-1-ros2/overview.md",
   "tags": [],
   "version": "current",
-  "sidebarPosition": 1,
-  "frontMatter": {
-    "sidebar_position": 1,
-    "title": "Overview",
-    "description": "Introduction to ROS 2 as the robotic nervous system.",
-    "keywords": [
-      "ros2",
-      "nervous system",
-      "robotics",
-      "overview"
-    ]
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Future Trajectory of Humanoid Robotics",

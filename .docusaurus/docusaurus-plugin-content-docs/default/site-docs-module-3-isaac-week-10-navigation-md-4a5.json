@@ -1,7 +1,7 @@
 {
   "id": "module-3-isaac/week-10-navigation",
-  "title": "Week 10: Navigation",
-  "description": "Bipedal robot navigation using Nav2 with Isaac Sim.",
+  "title": "Week 10: Navigation and Mobility",
+  "description": "Overview",
   "source": "@site/docs/module-3-isaac/week-10-navigation.md",
   "sourceDirName": "module-3-isaac",
   "slug": "/module-3-isaac/week-10-navigation",
@@ -11,26 +11,14 @@
   "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-3-isaac/week-10-navigation.md",
   "tags": [],
   "version": "current",
-  "sidebarPosition": 4,
-  "frontMatter": {
-    "sidebar_position": 4,
-    "title": "Week 10: Navigation",
-    "description": "Bipedal robot navigation using Nav2 with Isaac Sim.",
-    "keywords": [
-      "isaac sim",
-      "navigation",
-      "nav2",
-      "bipedal",
-      "robotics"
-    ]
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Week 9: Perception",
+    "title": "Week 9: Advanced Perception (Isaac ROS)",
     "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/week-9-perception"
   },
   "next": {
-    "title": "Assignments",
+    "title": "Module 3 Assignments",
     "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/assignments"
   }
 }

@@ -1,7 +1,7 @@
 {
   "id": "module-2-simulation/overview",
-  "title": "Overview",
-  "description": "Introduction to digital twins and simulation for robotics.",
+  "title": "Module 2: The Digital Twin - Gazebo & Unity",
+  "description": "Overview",
   "source": "@site/docs/module-2-simulation/overview.md",
   "sourceDirName": "module-2-simulation",
   "slug": "/module-2-simulation/overview",
@@ -11,22 +11,10 @@
   "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-2-simulation/overview.md",
   "tags": [],
   "version": "current",
-  "sidebarPosition": 1,
-  "frontMatter": {
-    "sidebar_position": 1,
-    "title": "Overview",
-    "description": "Introduction to digital twins and simulation for robotics.",
-    "keywords": [
-      "simulation",
-      "digital twin",
-      "gazebo",
-      "unity",
-      "robotics"
-    ]
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Capstone: Nervous System",
+    "title": "Module 1 Capstone: The Robotic Nervous System",
     "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/capstone-nervous-system"
   },
   "next": {

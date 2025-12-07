@@ -27,11 +27,11 @@
   },
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Overview",
+    "title": "Module 1: The Robotic Nervous System (ROS 2)",
     "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/overview"
   },
   "next": {
-    "title": "Week 4: Sensors and TF2",
+    "title": "Week 4: Sensors, TF, and Robot Models",
     "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/week-4-sensors-tf"
   }
 }

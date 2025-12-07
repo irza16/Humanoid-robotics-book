@@ -1,26 +1,112 @@
----
-sidebar_position: 3
-title: "Week 4: Sensors and TF2"
-description: "Integrating sensors and managing coordinate frames with TF2."
-keywords: [ros2, sensors, tf2, transforms, lidar, imu]
----
-# Week 4: Sensors and TF2
+# Week 4: Sensors, TF, and Robot Models
 
-This week focuses on integrating various sensors with ROS 2 and managing coordinate transformations using the TF2 library, essential for understanding a robot's pose and environment.
+## Overview
 
-## Integrating Sensors
+Welcome to Week 4 of the Robotic Nervous System module! This week focuses on sensor integration, coordinate transformations with TF2, and robot modeling using URDF (Unified Robot Description Format). You'll learn how robots perceive their environment through various sensors, how to manage coordinate systems for multi-part robots, and how to create digital representations of physical robots.
 
-Robots use sensors to perceive the world. Common sensors include:
-- **LiDAR**: For measuring distances to objects.
-- **IMU**: For measuring orientation and acceleration.
-- **Cameras**: For capturing images and video.
+## Learning Objectives
 
-In ROS 2, sensor data is published on topics. For example, a LiDAR sensor might publish `sensor_msgs/msg/LaserScan` messages on a `/scan` topic.
+By the end of this week, you will be able to:
 
-## TF2 for Coordinate Transforms
+- Stream and process sensor data in ROS 2
+- Implement and use TF2 transforms for coordinate system management
+- Create robot descriptions using URDF and Xacro
+- Visualize robots and sensor data in RViz
+- Debug sensor pipelines and transform issues
 
-A robot is a collection of parts, each with its own coordinate frame. TF2 is a ROS 2 library that helps keep track of these coordinate frames and allows you to transform data between them.
+## Sensor Streaming Pipelines
 
-For example, you can use TF2 to transform a laser scan from the frame of the LiDAR to the frame of the robot's base. This is crucial for tasks like navigation and obstacle avoidance.
+Robots rely on various sensors to perceive their environment. In ROS 2, sensors publish data to topics that other nodes can subscribe to. Common sensor types include:
 
-A transform is represented by a `geometry_msgs/msg/TransformStamped` message, which includes the parent and child frames, and the translation and rotation between them.
+- **Camera sensors**: Publish image data as sensor_msgs/Image
+- **LIDAR sensors**: Publish point clouds as sensor_msgs/LaserScan or sensor_msgs/PointCloud2
+- **IMU sensors**: Publish inertial measurements as sensor_msgs/Imu
+- **Joint state sensors**: Publish joint positions as sensor_msgs/JointState
+
+### Camera Sensor Pipeline
+
+Camera sensors typically publish images to topics like /camera/image_raw. To process these images, you need to convert them from ROS Image messages to OpenCV images using cv_bridge.
+
+### LIDAR Sensor Pipeline
+
+LIDAR sensors publish laser scan data to topics like /scan. This data can be used for obstacle detection, mapping, and navigation.
+
+## TF2 Transforms and Coordinate Frames
+
+TF2 (Transform Library 2) is ROS 2's system for managing coordinate frame transformations. It allows you to keep track of multiple coordinate frames over time and answer questions like "What is the position of the robot's gripper relative to the camera?"
+
+### Understanding Coordinate Frames
+
+In robotics, coordinate frames define the position and orientation of objects in space. Common frames include:
+
+- **map**: Fixed world coordinate frame
+- **odom**: Odometry-based coordinate frame
+- **base_link**: Robot's base coordinate frame
+- **camera_frame**: Camera's coordinate frame
+- **laser_frame**: LIDAR's coordinate frame
+
+### TF2 Publisher
+
+To publish transforms between frames, you use a TransformBroadcaster. This is typically done in a timer callback to continuously update the transform.
+
+### TF2 Lookup
+
+To lookup transforms between frames, you use a TransformListener. This allows you to query the transform between two frames at a specific time.
+
+## URDF and Xacro for Robot Modeling
+
+URDF (Unified Robot Description Format) is an XML format for representing robot models. It defines the physical and visual properties of robots, including links, joints, and sensors.
+
+### Basic URDF Structure
+
+A basic URDF file contains:
+- Links: Rigid bodies of the robot
+- Joints: Connections between links
+- Visual: How the robot looks in simulation
+- Collision: Collision properties for physics simulation
+- Inertial: Mass and inertia properties
+
+### Xacro for Complex Models
+
+Xacro is an XML macro language that allows you to create more complex and reusable URDF models. It provides features like:
+- Property definitions
+- Macros for reusable components
+- Mathematical expressions
+- File inclusion
+
+## RViz Visualization
+
+RViz is ROS 2's 3D visualization tool for displaying robot models, sensor data, and other information. You can add different displays to visualize:
+- Robot models (RobotModel)
+- Sensor data (LaserScan, Image, PointCloud2)
+- Transforms (TF)
+- Paths and goals (Path, Pose)
+- Grids and markers
+
+## Debugging Sensor Pipelines and Transforms
+
+### Common Sensor Issues
+
+- **No data**: Check if sensor driver is running and publishing
+- **Wrong frame**: Verify sensor frame_id matches expected transform
+- **Wrong data type**: Ensure subscriber expects correct message type
+
+### TF2 Debugging Commands
+
+- ros2 run tf2_tools view_frames: View the transform tree
+- ros2 run tf2_ros tf2_echo base_link laser_frame: Echo transforms
+- ros2 run tf2_ros tf2_monitor: Check for transform errors
+
+## Summary and Next Steps
+
+This week, you've learned how to work with sensor data, manage coordinate systems with TF2, create robot models with URDF/Xacro, and visualize your robots in RViz. These skills are essential for building complex robotic systems that can perceive and interact with their environment.
+
+Next week, we'll explore ROS Control for managing robot hardware and integrating AI agents with physical systems.
+
+## Key Takeaways
+
+- Sensors publish data to topics for other nodes to process
+- TF2 manages coordinate frame transformations between robot parts
+- URDF describes robot geometry, kinematics, and dynamics
+- RViz provides 3D visualization of robots and sensor data
+- Proper debugging tools help identify sensor and transform issues

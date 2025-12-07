@@ -1,15 +1,15 @@
 {
-  "/Humanoid-robotics-book/docs-940": {
+  "/Humanoid-robotics-book/docs-b18": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/Humanoid-robotics-book/docs-140": {
+  "/Humanoid-robotics-book/docs-8b2": {
     "__comp": "a7bd4aaa",
     "__props": "daaee4af"
   },
-  "/Humanoid-robotics-book/docs-7df": {
+  "/Humanoid-robotics-book/docs-ecf": {
     "__comp": "a94703ab"
   },
   "/Humanoid-robotics-book/docs/appendix/glossary-214": {
@@ -111,6 +111,14 @@
   "/Humanoid-robotics-book/docs/module-2-simulation/unity-integration-135": {
     "__comp": "17896441",
     "content": "acb42579"
+  },
+  "/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup-249": {
+    "__comp": "17896441",
+    "content": "1e766af2"
+  },
+  "/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration-ea0": {
+    "__comp": "17896441",
+    "content": "6a4184b1"
   },
   "/Humanoid-robotics-book/docs/module-3-isaac/assignments-438": {
     "__comp": "17896441",

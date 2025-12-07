@@ -1,7 +1,7 @@
 {
   "id": "module-3-isaac/week-8-isaac-sim",
-  "title": "Week 8: Isaac Sim",
-  "description": "Getting started with NVIDIA Isaac Sim for photorealistic simulation and synthetic data generation.",
+  "title": "Week 8: The Digital Twin (Isaac Sim & USD)",
+  "description": "Overview",
   "source": "@site/docs/module-3-isaac/week-8-isaac-sim.md",
   "sourceDirName": "module-3-isaac",
   "slug": "/module-3-isaac/week-8-isaac-sim",
@@ -11,26 +11,14 @@
   "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-3-isaac/week-8-isaac-sim.md",
   "tags": [],
   "version": "current",
-  "sidebarPosition": 2,
-  "frontMatter": {
-    "sidebar_position": 2,
-    "title": "Week 8: Isaac Sim",
-    "description": "Getting started with NVIDIA Isaac Sim for photorealistic simulation and synthetic data generation.",
-    "keywords": [
-      "isaac sim",
-      "nvidia",
-      "simulation",
-      "synthetic data",
-      "robotics"
-    ]
-  },
+  "frontMatter": {},
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Overview",
+    "title": "Module 3: The AI-Robot Brain - NVIDIA Isaac™",
     "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/overview"
   },
   "next": {
-    "title": "Week 9: Perception",
+    "title": "Week 9: Advanced Perception (Isaac ROS)",
     "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/week-9-perception"
   }
 }
