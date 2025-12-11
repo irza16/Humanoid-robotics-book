@@ -43,7 +43,7 @@ If you want to deploy the Docusaurus site to Railway as well, it requires Node.j
 2. Click "New Project"
 3. Choose "Deploy from GitHub"
 4. Select your repository containing the chatbot code
-5. Choose the `chatbot/backend` directory as the deployment target
+5. Railway will automatically detect the Python backend due to the Procfile in the root directory
 
 #### Step 3: Configure Environment Variables in Railway
 Add the following environment variables in Railway's Environment Variables section:
@@ -60,16 +60,12 @@ DEBUG=false
 ```
 
 #### Step 4: Configure Deployment Settings
-1. Set the deployment command in Railway:
-   - Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+1. The deployment command is automatically set via the Procfile in the root directory:
+   - Start command: `cd chatbot/backend && python -m uvicorn main:app --host 0.0.0.0 --port $PORT`
 
-2. Configure build settings:
-   - Runtime: Python 3.10+ (as specified in requirements.txt)
-   - Build command: `pip install -r requirements.txt`
-
-3. Node.js version for frontend (if deploying the Docusaurus site to Railway as well):
-   - Railway will automatically detect Node.js version from `.nvmrc` file (set to 20.10.0)
-   - Or from `engines.node` field in `package.json` (set to ">=20.0")
+2. Railway will automatically detect Python and install dependencies from requirements.txt
+   - Runtime: Python 3.10+ (detected automatically)
+   - Build command: `pip install -r chatbot/backend/requirements.txt` (detected automatically)
 
 #### Step 5: Deploy and Monitor
 1. Trigger the initial deployment from the Railway dashboard
