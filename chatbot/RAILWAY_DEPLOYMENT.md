@@ -25,7 +25,12 @@ This guide provides step-by-step instructions for deploying the RAG (Retrieval-A
 - GitHub repository with the chatbot code
 - Sitemap URL of the book website for content ingestion
 
-### 1.2 Railway Setup Process
+### 1.2 Important Note
+The backend (FastAPI application) is Python-based and should be deployed to Railway.
+The frontend (Docusaurus site) is JavaScript-based and is typically deployed to GitHub Pages, not Railway.
+If you want to deploy the Docusaurus site to Railway as well, it requires Node.js 20+.
+
+### 1.3 Railway Setup Process
 
 #### Step 1: Prepare Repository for Deployment
 1. Ensure all dependencies are listed in `chatbot/backend/requirements.txt`
@@ -61,6 +66,10 @@ DEBUG=false
 2. Configure build settings:
    - Runtime: Python 3.10+ (as specified in requirements.txt)
    - Build command: `pip install -r requirements.txt`
+
+3. Node.js version for frontend (if deploying the Docusaurus site to Railway as well):
+   - Railway will automatically detect Node.js version from `.nvmrc` file (set to 20.10.0)
+   - Or from `engines.node` field in `package.json` (set to ">=20.0")
 
 #### Step 5: Deploy and Monitor
 1. Trigger the initial deployment from the Railway dashboard
