@@ -1,0 +1,26 @@
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "nixpacksPlan": {
+      "phases": {
+        "setup": {
+          "nixPkgs": ["python311", "python311Packages.pip", "nodejs-18_x"],
+          "aptPkgs": []
+        },
+        "install": {
+          "cmd": "python -m pip install --upgrade pip && python -m pip install -r chatbot/backend/requirements.txt"
+        },
+        "build": {
+          "cmd": "echo 'No build step needed for Python backend'"
+        },
+        "start": {
+          "cmd": "python -m uvicorn app:app --host 0.0.0.0 --port $PORT"
+        }
+      },
+      "variables": {}
+    }
+  },
+  "deploy": {
+    "startCommand": "python -m uvicorn app:app --host 0.0.0.0 --port $PORT"
+  }
+}
