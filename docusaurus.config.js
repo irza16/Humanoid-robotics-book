@@ -9,7 +9,7 @@ const darkCodeTheme = themes.dracula;
 const config = {
   title: 'Physical AI & Humanoid Robotics',
   tagline: 'From Digital AI to Embodied Intelligence',
-  favicon: 'img/favicon.ico',
+  favicon: '/img/favicon.svg',
 
   // Set the production url of your site here
   url: 'https://irza16.github.io',
@@ -64,12 +64,12 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/social-card.jpg',
+      image: '/img/social-card.svg',
       navbar: {
         title: 'Physical AI & Humanoid Robotics',
         logo: {
           alt: 'Physical AI Logo',
-          src: 'img/logo.svg',
+          src: '/img/logo.svg',
           href: '/',
         },
         items: [
