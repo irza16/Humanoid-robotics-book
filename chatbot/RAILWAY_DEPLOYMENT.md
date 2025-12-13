@@ -25,7 +25,12 @@ This guide provides step-by-step instructions for deploying the RAG (Retrieval-A
 - GitHub repository with the chatbot code
 - Sitemap URL of the book website for content ingestion
 
-### 1.2 Railway Setup Process
+### 1.2 Important Note
+The backend (FastAPI application) is Python-based and should be deployed to Railway.
+The frontend (Docusaurus site) is JavaScript-based and is typically deployed to GitHub Pages, not Railway.
+If you want to deploy the Docusaurus site to Railway as well, it requires Node.js 20+.
+
+### 1.3 Railway Setup Process
 
 #### Step 1: Prepare Repository for Deployment
 1. Ensure all dependencies are listed in `chatbot/backend/requirements.txt`
@@ -38,7 +43,7 @@ This guide provides step-by-step instructions for deploying the RAG (Retrieval-A
 2. Click "New Project"
 3. Choose "Deploy from GitHub"
 4. Select your repository containing the chatbot code
-5. Choose the `chatbot/backend` directory as the deployment target
+5. Railway will automatically detect the Python backend due to the Procfile in the root directory
 
 #### Step 3: Configure Environment Variables in Railway
 Add the following environment variables in Railway's Environment Variables section:
@@ -55,12 +60,12 @@ DEBUG=false
 ```
 
 #### Step 4: Configure Deployment Settings
-1. Set the deployment command in Railway:
-   - Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+1. The deployment command is automatically set via the Procfile in the root directory:
+   - Start command: `cd chatbot/backend && python -m uvicorn main:app --host 0.0.0.0 --port $PORT`
 
-2. Configure build settings:
-   - Runtime: Python 3.10+ (as specified in requirements.txt)
-   - Build command: `pip install -r requirements.txt`
+2. Railway will automatically detect Python and install dependencies from requirements.txt
+   - Runtime: Python 3.10+ (detected automatically)
+   - Build command: `pip install -r chatbot/backend/requirements.txt` (detected automatically)
 
 #### Step 5: Deploy and Monitor
 1. Trigger the initial deployment from the Railway dashboard
