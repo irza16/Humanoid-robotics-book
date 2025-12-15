@@ -1,0 +1,288 @@
+openapi: 3.0.3
+info:
+  title: RAG Chatbot API
+  description: API for the Retrieval-Augmented Generation chatbot embedded in the Physical AI & Humanoid Robotics book
+  version: 1.0.0
+  contact:
+    name: Development Team
+    email: dev@example.com
+servers:
+  - url: https://api.example.com
+    description: Production server
+  - url: http://localhost:8000
+    description: Development server
+
+paths:
+  /chat:
+    post:
+      summary: Process a user question and return an AI-generated answer
+      description: Takes a user question and optional selected text context, performs RAG retrieval, and returns an AI-generated answer with source attribution
+      operationId: processChat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Successful response with answer and sources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - api_key: []
+
+  /ingest:
+    post:
+      summary: Ingest book content to vector database
+      description: Fetches all book pages, extracts text, chunks it, generates embeddings, and stores in Qdrant
+      operationId: ingestContent
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestRequest'
+      responses:
+        '200':
+          description: Content ingestion completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error during ingestion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - api_key: []
+
+  /health:
+    get:
+      summary: Health check endpoint
+      description: Returns the health status of the API
+      operationId: getHealth
+      responses:
+        '200':
+          description: Health status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /stats:
+    get:
+      summary: Usage statistics
+      description: Returns usage statistics for analytics
+      operationId: getStats
+      responses:
+        '200':
+          description: Usage statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - api_key: []
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required:
+        - question
+      properties:
+        question:
+          type: string
+          description: The user's question about the book content
+          example: "What is ROS 2 and how does it differ from ROS 1?"
+        selected_text:
+          type: string
+          description: Text selected by the user on the page (optional)
+          example: "ROS 2 is a next-generation robotics framework that addresses limitations of ROS 1..."
+        session_id:
+          type: string
+          description: Session identifier (optional, will be created if not provided)
+          example: "sess_abc123def456"
+      example:
+        question: "What is ROS 2 and how does it differ from ROS 1?"
+        selected_text: "ROS 2 is a next-generation robotics framework that addresses limitations of ROS 1..."
+        session_id: "sess_abc123def456"
+
+    ChatResponse:
+      type: object
+      required:
+        - answer
+        - sources
+        - session_id
+      properties:
+        answer:
+          type: string
+          description: The AI-generated answer to the user's question
+          example: "ROS 2 is a next-generation robotics framework that provides better real-time performance, improved security, and enhanced multi-robot support compared to ROS 1..."
+        sources:
+          type: array
+          description: List of sources used to generate the answer
+          items:
+            $ref: '#/components/schemas/Source'
+        session_id:
+          type: string
+          description: The session identifier
+          example: "sess_abc123def456"
+        confidence:
+          type: number
+          description: Confidence score for the answer (0-1)
+          example: 0.85
+      example:
+        answer: "ROS 2 is a next-generation robotics framework that provides better real-time performance, improved security, and enhanced multi-robot support compared to ROS 1..."
+        sources:
+          - url: "/module1/ros2-basics"
+            title: "ROS 2 Basics"
+            content: "ROS 2 is a next-generation robotics framework that addresses limitations of ROS 1..."
+        session_id: "sess_abc123def456"
+        confidence: 0.85
+
+    IngestRequest:
+      type: object
+      properties:
+        force:
+          type: boolean
+          description: Whether to force re-ingestion even if content already exists
+          default: false
+          example: true
+      example:
+        force: true
+
+    IngestResponse:
+      type: object
+      required:
+        - chunks_processed
+        - status
+      properties:
+        chunks_processed:
+          type: integer
+          description: Number of text chunks processed and stored
+          example: 425
+        status:
+          type: string
+          description: Status of the ingestion process
+          example: "completed"
+        message:
+          type: string
+          description: Additional information about the process
+          example: "Successfully ingested 425 chunks from 25 book pages"
+
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum: [healthy, unhealthy]
+          description: Health status of the service
+          example: "healthy"
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the health check
+          example: "2025-12-10T10:30:00Z"
+        version:
+          type: string
+          description: API version
+          example: "1.0.0"
+
+    StatsResponse:
+      type: object
+      properties:
+        total_questions:
+          type: integer
+          description: Total number of questions processed
+          example: 1250
+        active_sessions:
+          type: integer
+          description: Number of active chat sessions
+          example: 42
+        avg_response_time:
+          type: number
+          description: Average response time in seconds
+          example: 2.35
+        success_rate:
+          type: number
+          description: Percentage of successful responses
+          example: 98.5
+
+    Source:
+      type: object
+      required:
+        - url
+        - title
+        - content
+      properties:
+        url:
+          type: string
+          description: URL of the source page
+          example: "/module1/ros2-basics"
+        title:
+          type: string
+          description: Title of the source page
+          example: "ROS 2 Basics"
+        content:
+          type: string
+          description: Excerpt from the source that was used
+          example: "ROS 2 is a next-generation robotics framework that addresses limitations of ROS 1..."
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: "INVALID_INPUT"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "Question is required and cannot be empty"
+        details:
+          type: object
+          description: Additional error details (optional)
+          example: {"field": "question"}
+
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-API-Key
+      in: header
+      description: API key for authentication
