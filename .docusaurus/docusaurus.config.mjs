@@ -6,7 +6,7 @@
 export default {
   "title": "Physical AI & Humanoid Robotics",
   "tagline": "From Digital AI to Embodied Intelligence",
-  "favicon": "img/favicon.ico",
+  "favicon": "/img/favicon.svg",
   "url": "https://irza16.github.io",
   "baseUrl": "/Humanoid-robotics-book/",
   "organizationName": "irza16",
@@ -55,12 +55,12 @@ export default {
     ]
   ],
   "themeConfig": {
-    "image": "img/social-card.jpg",
+    "image": "/img/social-card.svg",
     "navbar": {
       "title": "Physical AI & Humanoid Robotics",
       "logo": {
         "alt": "Physical AI Logo",
-        "src": "img/logo.svg",
+        "src": "/img/logo.svg",
         "href": "/"
       },
       "items": [

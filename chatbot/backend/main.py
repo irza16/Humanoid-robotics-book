@@ -17,6 +17,24 @@ import time
 # Load environment variables
 load_dotenv()
 
+# Validate required environment variables are set
+required_vars = [
+    'cohere_api_key',
+    'gemini_api_key',
+    'qdrant_url',
+    'qdrant_api_key',
+    'neon_database_url',
+    'secret_key'
+]
+
+missing_vars = []
+for var in required_vars:
+    if not getattr(settings, var, None):
+        missing_vars.append(var)
+
+if missing_vars:
+    raise ValueError(f"Missing required environment variables: {', '.join(missing_vars)}")
+
 # Initialize database and RAG pipeline
 init_db_manager(settings.neon_database_url)
 init_rag_pipeline()
@@ -28,12 +46,19 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "http://127.0.0.1:3000",
         "http://localhost:8000",
-        "https://irza16.github.io"  # GitHub Pages domain
+        "http://127.0.0.1:8000",
+        "https://irza16.github.io",  # GitHub Pages root
+        "https://irza16.github.io/Humanoid-robotics-book/"  # GitHub Pages project path
     ],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],  # Explicitly specify methods
+    allow_headers=["Content-Type", "Authorization"],  # Explicitly specify headers
+    # Additional options for better CORS handling
+    allow_origin_regex=None,
+    expose_headers=[],
+    max_age=600,  # Cache preflight for 10 minutes
 )
 
 # Add error handlers
@@ -237,4 +262,6 @@ async def get_stats():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import os
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
