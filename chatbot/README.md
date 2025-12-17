@@ -11,12 +11,21 @@ This project implements a Retrieval-Augmented Generation (RAG) chatbot for the P
 - **Source Attribution**: All answers include links to the original book sections
 - **Chat History**: Conversations are saved and accessible across sessions
 - **Mobile Responsive**: Works on all device sizes
+- **Multi-Agent Architecture**: Specialized agents for different course modules (ROS 2, Simulation, Isaac, VLA)
+- **Intelligent Routing**: Automatic question routing to the most appropriate specialized agent
+- **Transparency**: API responses include which subagent processed your request
 
 ## Architecture
 
 The system consists of:
 - **Frontend**: Vanilla JavaScript widget embedded in Docusaurus
-- **Backend**: FastAPI server with RAG pipeline
+- **Backend**: FastAPI server with multi-agent RAG pipeline
+- **Multi-Agent System**: Specialized agents for different course modules:
+  - **ROS2Expert**: For ROS 2 related queries (Module 1)
+  - **SimulationExpert**: For simulation related queries (Module 2)
+  - **IsaacExpert**: For Isaac Sim related queries (Module 3)
+  - **VLAExpert**: For Vision-Language-Action queries (Module 4)
+- **Coordinator Agent**: Intelligent routing based on keyword matching
 - **AI Models**: Google Gemini 2.0 Flash via OpenAI SDK
 - **Embeddings**: Cohere embed-english-v3.0
 - **Vector DB**: Qdrant Cloud
