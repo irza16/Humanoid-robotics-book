@@ -97,6 +97,7 @@ class ChatResponse(BaseModel):
     answer: str
     sources: List[Source]
     session_id: str
+    subagent_used: Optional[str] = None  # Added for transparency about which subagent processed the request
 
 
 @app.get("/")
@@ -137,7 +138,9 @@ async def chat_endpoint(chat_request: ChatRequest):
         rag_pipeline = get_rag_pipeline()
 
         # Process the query through the RAG pipeline
-        answer, sources = rag_pipeline.process_query(sanitized_question, sanitized_selected_text)
+        # The new process_query returns answer, sources, and subagent_used
+        result = rag_pipeline.process_query(sanitized_question, sanitized_selected_text)
+        answer, sources, subagent_used = result
 
         # Store the interaction in the database (optional - won't break if database fails)
         try:
@@ -187,7 +190,8 @@ async def chat_endpoint(chat_request: ChatRequest):
         response = ChatResponse(
             answer=answer,
             sources=formatted_sources,
-            session_id=session_id
+            session_id=session_id,
+            subagent_used=subagent_used  # Include which subagent was used for transparency
         )
         print("ChatResponse created successfully")
 
