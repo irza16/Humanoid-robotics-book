@@ -14,11 +14,64 @@
             }
             // Default to Railway URL, but also check if we're in development
             const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            return isLocalhost ? 'http://localhost:8000' : 'https://superb-joy-production-8bd7.up.railway.app';
+            return isLocalhost ? 'http://localhost:8000' : 'https://superb-joy.up.railway.app';
         })(),
         maxMessageLength: 2000,
-        maxSelectedTextLength: 5000
+        maxSelectedTextLength: 5000,
+        maxRetries: 2,
+        requestTimeout: 30000  // 30 seconds timeout
     };
+
+    // Helper function to make requests with timeout and retry logic
+    async function makeRequestWithRetry(url, options = {}) {
+        let lastError = null;
+
+        for (let attempt = 0; attempt <= CONFIG.maxRetries; attempt++) {
+            try {
+                // Create a promise that rejects after timeout
+                const timeoutPromise = new Promise((_, reject) => {
+                    setTimeout(() => reject(new Error('Request timeout')), CONFIG.requestTimeout);
+                });
+
+                // Make the actual fetch request
+                const fetchPromise = fetch(url, {
+                    ...options,
+                    // Ensure we handle potential network issues
+                    mode: 'cors',
+                    credentials: 'omit'  // Don't send cookies unless needed
+                });
+
+                // Race the fetch against the timeout
+                const response = await Promise.race([fetchPromise, timeoutPromise]);
+
+                // If we get a response, check if it's ok
+                if (response.ok) {
+                    return response;
+                }
+
+                // If response is not ok, throw an error
+                const errorText = await response.text().catch(() => 'Unknown server error');
+                throw new Error(`Server error: ${response.status} - ${errorText || response.statusText}`);
+            } catch (error) {
+                lastError = error;
+
+                // If this was a timeout or network error, and we have retries left, wait before retrying
+                if (attempt < CONFIG.maxRetries) {
+                    // Wait before retrying (exponential backoff: 1s, 2s, 4s...)
+                    const waitTime = Math.pow(2, attempt) * 1000;
+                    console.log(`Request failed (attempt ${attempt + 1}), retrying in ${waitTime}ms...`);
+                    await new Promise(resolve => setTimeout(resolve, waitTime));
+                    continue;
+                }
+
+                // If we've exhausted retries, throw the last error
+                throw error;
+            }
+        }
+
+        // This should never be reached, but just in case
+        throw lastError;
+    }
 
     // State management
     let state = {
@@ -261,23 +314,14 @@
                 selected_text: selectedTextToUse
             };
 
-            // Send request to backend
-            const response = await fetch(`${CONFIG.backendUrl}/chat`, {
+            // Send request to backend with retry logic and timeout
+            const response = await makeRequestWithRetry(`${CONFIG.backendUrl}/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(payload)
             });
-
-            if (!response.ok) {
-                if (response.status === 404 || response.status === 502 || response.status === 503) {
-                    // Backend service is not available
-                    throw new Error(`Backend service temporarily unavailable. Please check if the backend is deployed and accessible.`);
-                } else {
-                    throw new Error(`Server error: ${response.status} - ${response.statusText}`);
-                }
-            }
 
             const data = await response.json();
 
@@ -307,16 +351,31 @@
             // Show improved error message based on error type
             let errorMessage = 'Sorry, I encountered an error processing your request. Please try again.';
 
-            if (error.message.includes('Backend service temporarily unavailable')) {
-                errorMessage = 'Backend service is currently unavailable. The RAG chatbot may not be deployed yet or may be experiencing issues. Please check the deployment status.';
+            if (error.name === 'AbortError' || error.message.includes('timeout')) {
+                errorMessage = 'Request timed out. The backend may be experiencing cold starts. Please try again in a moment.';
             } else if (error.message.includes('Failed to fetch')) {
-                errorMessage = 'Unable to connect to the backend service. Please check your internet connection and backend deployment status.';
+                errorMessage = 'Unable to connect to the backend service. This may be due to network issues or the backend being temporarily unavailable.';
             } else if (error.message.includes('NetworkError')) {
                 errorMessage = 'Network error occurred. Please check your connection and try again.';
+            } else if (error.message.includes('502') || error.message.includes('503') || error.message.includes('504')) {
+                errorMessage = 'Backend service is temporarily unavailable. This is likely due to cold start delays on Railway. The service should become available shortly. Please try again.';
+            } else if (error.message.includes('404')) {
+                errorMessage = 'Backend service endpoint not found. The API may be misconfigured or not deployed.';
+            } else if (error.message.includes('429')) {
+                errorMessage = 'Rate limit exceeded. Please wait before sending another message.';
+            } else if (error.message.includes('Request timeout')) {
+                errorMessage = 'Request timed out after 30 seconds. The backend may be experiencing cold starts. Please try again.';
+            } else {
+                // Generic error with more specific information
+                errorMessage = `Error: ${error.message}. Backend may be temporarily unavailable due to cold start or other issues. Please try again.`;
             }
 
             addMessage(errorMessage, 'error');
-            console.error('Chat error:', error);
+            console.error('Chat error details:', {
+                message: error.message,
+                stack: error.stack,
+                name: error.name
+            });
         }
     }
 
