@@ -16,7 +16,10 @@ export default function Root({ children }) {
         // The chatbot widget should now use the configured backend URL
       };
       // Set the backend URL as a data attribute on the script for the widget to use
-      script.setAttribute('data-backend-url', 'http://localhost:8000');
+      // Use production URL for GitHub Pages, localhost for development
+      const isGitHubPages = window.location.hostname.includes('github.io');
+      const backendUrl = isGitHubPages ? 'https://superb-joy.up.railway.app' : 'http://localhost:8000';
+      script.setAttribute('data-backend-url', backendUrl);
       script.onerror = () => {
         console.error('Failed to load chatbot widget script');
       };
