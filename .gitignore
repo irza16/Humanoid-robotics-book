@@ -22,3 +22,6 @@ Thumbs.db
 .vscode/
 .idea/
 node_modules
+
+# Docusaurus
+.docusaurus/

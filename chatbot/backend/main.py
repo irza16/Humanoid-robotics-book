@@ -13,6 +13,7 @@ from rag import init_rag_pipeline, get_rag_pipeline
 from rate_limiter import check_rate_limit
 from sanitizer import sanitize_input
 import time
+import logging
 
 # Load environment variables
 load_dotenv()
@@ -41,7 +42,7 @@ init_rag_pipeline()
 
 app = FastAPI(title="RAG Chatbot API", version="1.0.0")
 
-# Configure CORS
+# Configure CORS - expanded for Railway deployment
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -50,16 +51,32 @@ app.add_middleware(
         "http://localhost:8000",
         "http://127.0.0.1:8000",
         "https://irza16.github.io",  # GitHub Pages root
-        "https://irza16.github.io/Humanoid-robotics-book/"  # GitHub Pages project path
+        "https://irza16.github.io/Humanoid-robotics-book/",  # GitHub Pages project path
+        "https://superb-joy.up.railway.app",  # Railway deployment
+        "https://*.railway.app"  # Wildcard for Railway subdomains
     ],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],  # Explicitly specify methods
-    allow_headers=["Content-Type", "Authorization"],  # Explicitly specify headers
+    allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE"],  # More methods for debugging
+    allow_headers=["*"],  # Allow all headers for debugging
     # Additional options for better CORS handling
     allow_origin_regex=None,
-    expose_headers=[],
+    expose_headers=["*"],
     max_age=600,  # Cache preflight for 10 minutes
 )
+
+# Add request logging middleware
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start_time = time.time()
+    logging.info(f"Request: {request.method} {request.url}")
+    logging.info(f"Headers: {dict(request.headers)}")
+
+    response = await call_next(request)
+
+    process_time = time.time() - start_time
+    logging.info(f"Response status: {response.status_code}, Process time: {process_time:.2f}s")
+
+    return response
 
 # Add error handlers
 add_error_handlers(app)

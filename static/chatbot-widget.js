@@ -6,27 +6,26 @@
 
     // Configuration
     const CONFIG = {
-        backendUrl: (function() {
-            // Try to get backend URL from data attribute on script tag, or use default
-            const script = document.querySelector('script[src*="chatbot-widget.js"]');
-            if (script && script.dataset.backendUrl) {
-                return script.dataset.backendUrl;
-            }
-            // Default to Railway URL, but also check if we're in development
-            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            return isLocalhost ? 'http://localhost:8000' : 'https://superb-joy.up.railway.app';
-        })(),
+        backendUrl: 'https://superb-joy.up.railway.app',  // Hardcoded Railway URL
         maxMessageLength: 2000,
         maxSelectedTextLength: 5000,
-        maxRetries: 2,
-        requestTimeout: 30000  // 30 seconds timeout
+        maxRetries: 3,  // Increased retries for Railway cold starts
+        requestTimeout: 45000,  // Increased timeout for Railway cold starts (45 seconds)
+        healthCheckInterval: 30000  // 30 seconds between health checks
     };
+
+    console.log('Chatbot widget loaded with config:', CONFIG);
+    console.log('Current location hostname:', window.location.hostname);
+    console.log('Backend URL configured as:', CONFIG.backendUrl);
 
     // Helper function to make requests with timeout and retry logic
     async function makeRequestWithRetry(url, options = {}) {
+        console.log('makeRequestWithRetry called with:', { url, options });
         let lastError = null;
 
         for (let attempt = 0; attempt <= CONFIG.maxRetries; attempt++) {
+            console.log(`Request attempt ${attempt + 1}/${CONFIG.maxRetries + 1}`, { url, options });
+
             try {
                 // Create a promise that rejects after timeout
                 const timeoutPromise = new Promise((_, reject) => {
@@ -41,18 +40,32 @@
                     credentials: 'omit'  // Don't send cookies unless needed
                 });
 
+                console.log('Making fetch request to:', url);
+                console.log('Request options:', options);
+
                 // Race the fetch against the timeout
                 const response = await Promise.race([fetchPromise, timeoutPromise]);
 
+                console.log('Received response:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    ok: response.ok,
+                    url: response.url
+                });
+
                 // If we get a response, check if it's ok
                 if (response.ok) {
+                    console.log('Request successful, returning response');
                     return response;
                 }
 
                 // If response is not ok, throw an error
                 const errorText = await response.text().catch(() => 'Unknown server error');
-                throw new Error(`Server error: ${response.status} - ${errorText || response.statusText}`);
+                const error = new Error(`Server error: ${response.status} - ${errorText || response.statusText}`);
+                console.error('Server error response:', error);
+                throw error;
             } catch (error) {
+                console.error(`Request attempt ${attempt + 1} failed:`, error);
                 lastError = error;
 
                 // If this was a timeout or network error, and we have retries left, wait before retrying
@@ -65,11 +78,13 @@
                 }
 
                 // If we've exhausted retries, throw the last error
+                console.error('All retry attempts failed, throwing error:', error);
                 throw error;
             }
         }
 
         // This should never be reached, but just in case
+        console.error('Unexpected end of retry loop, throwing last error:', lastError);
         throw lastError;
     }
 
@@ -289,32 +304,42 @@
 
     // Send message to backend
     async function sendMessage() {
+        console.log('sendMessage called with input value:', elements.input.value);
         const message = elements.input.value.trim();
 
-        if (!message) return;
+        if (!message) {
+            console.log('Message is empty, returning early');
+            return;
+        }
         if (message.length > CONFIG.maxMessageLength) {
+            console.log('Message too long:', message.length, 'characters');
             addMessage('Your message is too long. Please keep it under 2000 characters.', 'error');
             return;
         }
 
         // Add user message to UI
+        console.log('Adding user message to UI:', message);
         addMessage(message, 'user');
         elements.input.value = '';
 
         // Show loading state with typing indicator
+        console.log('Showing loading message');
         const loadingMsg = addMessage('🤖 Typing...', 'bot', true);
 
         try {
             // Use cached selected text if available, otherwise use current state
             const selectedTextToUse = state.selectedTextCache || state.selectedText || null;
+            console.log('Selected text for request:', selectedTextToUse);
 
             // Prepare the request payload
             const payload = {
                 question: message,
                 selected_text: selectedTextToUse
             };
+            console.log('Sending payload:', payload);
 
             // Send request to backend with retry logic and timeout
+            console.log('Making request to:', `${CONFIG.backendUrl}/chat`);
             const response = await makeRequestWithRetry(`${CONFIG.backendUrl}/chat`, {
                 method: 'POST',
                 headers: {
@@ -323,28 +348,36 @@
                 body: JSON.stringify(payload)
             });
 
+            console.log('Response received, parsing JSON...');
             const data = await response.json();
+            console.log('Parsed response data:', data);
 
             // Remove loading message
+            console.log('Removing loading message');
             removeMessage(loadingMsg);
 
             // Add bot response to UI
+            console.log('Adding bot response to UI:', data.answer);
             addMessage(data.answer, 'bot');
 
             // Add "based on selected text" badge if the response used selected text
             if (state.selectedTextCache || state.selectedText) {
+                console.log('Adding context badge for selected text');
                 addContextBadge('Based on selected text');
             }
 
             // Handle sources if available
             if (data.sources && data.sources.length > 0) {
+                console.log('Adding sources to UI:', data.sources);
                 addSources(data.sources);
             }
 
             // Clear the selected text cache after successfully sending the message
+            console.log('Clearing selected text cache');
             state.selectedTextCache = null;
             hideSelectedTextIndicator();
         } catch (error) {
+            console.error('Error in sendMessage:', error);
             // Remove loading message
             removeMessage(loadingMsg);
 
@@ -370,6 +403,7 @@
                 errorMessage = `Error: ${error.message}. Backend may be temporarily unavailable due to cold start or other issues. Please try again.`;
             }
 
+            console.log('Adding error message to UI:', errorMessage);
             addMessage(errorMessage, 'error');
             console.error('Chat error details:', {
                 message: error.message,
@@ -486,11 +520,45 @@
         elements.messages.scrollTop = elements.messages.scrollHeight;
     }
 
+    // Health check function to test backend connectivity
+    async function performHealthCheck() {
+        console.log('Performing health check...');
+        try {
+            const response = await fetch(`${CONFIG.backendUrl}/health`);
+            const data = await response.json();
+            console.log('Health check response:', data);
+
+            if (response.ok) {
+                console.log('✓ Backend is healthy');
+                // Optionally, you could display a status indicator somewhere
+                return true;
+            } else {
+                console.error('✗ Backend health check failed:', response.status, data);
+                return false;
+            }
+        } catch (error) {
+            console.error('✗ Health check failed with error:', error);
+            return false;
+        }
+    }
+
     // Initialize the widget when DOM is loaded
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
+
+    // Perform initial health check after widget is initialized
+    setTimeout(async () => {
+        console.log('Performing initial health check after widget initialization...');
+        await performHealthCheck();
+
+        // Set up periodic health checks
+        setInterval(async () => {
+            console.log('Performing periodic health check...');
+            await performHealthCheck();
+        }, CONFIG.healthCheckInterval);
+    }, 2000); // Wait 2 seconds after initialization to perform first check
 
 })();
