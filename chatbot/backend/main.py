@@ -52,7 +52,7 @@ app.add_middleware(
     # Additional options for better CORS handling
     allow_origin_regex=None,
     expose_headers=["*"],
-    max_age=600,  # Cache preflight for 10 minutes
+    max_age=86400,  # Cache preflight for 24 hours to reduce preflight requests
 )
 
 # Add request logging middleware
@@ -108,15 +108,31 @@ class ChatResponse(BaseModel):
     subagent_used: Optional[str] = None  # Added for transparency about which subagent processed the request
 
 
+@app.options("/")
+async def root_options():
+    """Handle preflight OPTIONS request for root endpoint"""
+    from fastapi.responses import Response
+    return Response(status_code=200)
+
 @app.get("/")
 async def root():
     return {"status": "ok", "message": "RAG Chatbot API"}
 
+@app.options("/health")
+async def health_options():
+    """Handle preflight OPTIONS request for health endpoint"""
+    from fastapi.responses import Response
+    return Response(status_code=200)
 
 @app.get("/health")
 async def health():
     return {"status": "healthy", "service": "chatbot-backend"}
 
+@app.options("/chat")
+async def chat_options():
+    """Handle preflight OPTIONS request for /chat endpoint"""
+    from fastapi.responses import Response
+    return Response(status_code=200)
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat_request: ChatRequest):
@@ -204,6 +220,12 @@ async def chat_endpoint(chat_request: ChatRequest):
         raise HTTPException(status_code=500, detail=f"Error processing chat request: {str(e)}")
 
 
+@app.options("/ingest")
+async def ingest_options():
+    """Handle preflight OPTIONS request for ingest endpoint"""
+    from fastapi.responses import Response
+    return Response(status_code=200)
+
 @app.post("/ingest")
 async def ingest_content(request: Request):
     """Ingest book content to vector database"""
@@ -236,6 +258,12 @@ async def ingest_content(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error ingesting content: {str(e)}")
 
+
+@app.options("/stats")
+async def stats_options():
+    """Handle preflight OPTIONS request for stats endpoint"""
+    from fastapi.responses import Response
+    return Response(status_code=200)
 
 @app.get("/stats")
 async def get_stats():
