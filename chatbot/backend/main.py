@@ -42,21 +42,12 @@ init_rag_pipeline()
 
 app = FastAPI(title="RAG Chatbot API", version="1.0.0")
 
-# Configure CORS - expanded for Railway deployment
+# Configure CORS - temporarily permissive for debugging
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:8000",
-        "http://127.0.0.1:8000",
-        "https://irza16.github.io",  # GitHub Pages root
-        "https://irza16.github.io/Humanoid-robotics-book/",  # GitHub Pages project path
-        "https://superb-joy.up.railway.app",  # Railway deployment
-        "https://*.railway.app"  # Wildcard for Railway subdomains
-    ],
+    allow_origins=["*"],  # Debug only - will narrow down later
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE"],  # More methods for debugging
+    allow_methods=["*"],  # Allow all methods for debugging
     allow_headers=["*"],  # Allow all headers for debugging
     # Additional options for better CORS handling
     allow_origin_regex=None,
@@ -119,17 +110,12 @@ class ChatResponse(BaseModel):
 
 @app.get("/")
 async def root():
-    return {"message": "RAG Chatbot API is running"}
+    return {"status": "ok", "message": "RAG Chatbot API"}
 
 
 @app.get("/health")
-async def health_check():
-    """Health check endpoint"""
-    return {
-        "status": "healthy",
-        "timestamp": datetime.now().isoformat(),
-        "version": "1.0.0"
-    }
+async def health():
+    return {"status": "healthy", "service": "chatbot-backend"}
 
 
 @app.post("/chat", response_model=ChatResponse)
@@ -280,6 +266,17 @@ async def get_stats():
         "timestamp": "2025-12-11T00:00:00"  # Simplified to avoid datetime issues
     }
 
+
+@app.on_event("startup")
+async def startup_event():
+    print("=== STARTUP DEBUG ===")
+    print("Routes registered:")
+    for route in app.routes:
+        if hasattr(route, 'methods') and hasattr(route, 'path'):
+            print(f"  {route.methods} {route.path}")
+        else:
+            print(f"  {route}")
+    print("====================")
 
 if __name__ == "__main__":
     import uvicorn
