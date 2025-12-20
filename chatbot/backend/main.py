@@ -18,39 +18,7 @@ import logging
 # Load environment variables
 load_dotenv()
 
-# Validate required environment variables are set (only for production use)
-# For basic functionality, we can run without these
-required_vars = [
-    'secret_key'  # This is the only truly required variable
-]
-
-missing_vars = []
-for var in required_vars:
-    if not getattr(settings, var, None):
-        missing_vars.append(var)
-
-if missing_vars:
-    raise ValueError(f"Missing required environment variables: {', '.join(missing_vars)}")
-
-# Log warning if optional variables are missing for RAG functionality
-optional_vars = [
-    'cohere_api_key',
-    'gemini_api_key',
-    'qdrant_url',
-    'qdrant_api_key',
-    'neon_database_url'
-]
-
-missing_optional = []
-for var in optional_vars:
-    if not getattr(settings, var, None):
-        missing_optional.append(var)
-
-if missing_optional:
-    print(f"WARNING: Missing optional environment variables for full RAG functionality: {', '.join(missing_optional)}")
-    print("Backend will start but some features may be limited.")
-
-# Initialize database and RAG pipeline (with error handling for missing config)
+# Initialize database and RAG pipeline
 try:
     if settings.neon_database_url:
         init_db_manager(settings.neon_database_url)

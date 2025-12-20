@@ -24,7 +24,8 @@
     let state = {
         isOpen: false,
         messages: [],
-        selectedText: null
+        selectedText: null,
+        selectedTextCache: null  // Persistent cache for selected text
     };
 
     // DOM elements
@@ -201,8 +202,11 @@
 
         if (selectedText && selectedText.length <= CONFIG.maxSelectedTextLength) {
             state.selectedText = selectedText;
+            state.selectedTextCache = selectedText;  // Store in persistent cache
             showSelectedTextIndicator(selectedText);
-        } else {
+        } else if (!selectedText && state.selectedTextCache) {
+            // Don't clear selectedText if we have cached text (user might be typing)
+            // Only clear when explicitly sending a message
             state.selectedText = null;
         }
     }
@@ -225,6 +229,7 @@
 
         if (selectedText && selectedText.length <= CONFIG.maxSelectedTextLength) {
             state.selectedText = selectedText;
+            state.selectedTextCache = selectedText;  // Store in persistent cache
             showSelectedTextIndicator(selectedText);
         }
     }
@@ -243,14 +248,17 @@
         addMessage(message, 'user');
         elements.input.value = '';
 
-        // Show loading state
+        // Show loading state with typing indicator
         const loadingMsg = addMessage('🤖 Typing...', 'bot', true);
 
         try {
+            // Use cached selected text if available, otherwise use current state
+            const selectedTextToUse = state.selectedTextCache || state.selectedText || null;
+
             // Prepare the request payload
             const payload = {
                 question: message,
-                selected_text: state.selectedText || null
+                selected_text: selectedTextToUse
             };
 
             // Send request to backend
@@ -263,7 +271,12 @@
             });
 
             if (!response.ok) {
-                throw new Error(`Server error: ${response.status} - ${response.statusText}`);
+                if (response.status === 404 || response.status === 502 || response.status === 503) {
+                    // Backend service is not available
+                    throw new Error(`Backend service temporarily unavailable. Please check if the backend is deployed and accessible.`);
+                } else {
+                    throw new Error(`Server error: ${response.status} - ${response.statusText}`);
+                }
             }
 
             const data = await response.json();
@@ -274,24 +287,36 @@
             // Add bot response to UI
             addMessage(data.answer, 'bot');
 
+            // Add "based on selected text" badge if the response used selected text
+            if (state.selectedTextCache || state.selectedText) {
+                addContextBadge('Based on selected text');
+            }
+
             // Handle sources if available
             if (data.sources && data.sources.length > 0) {
                 addSources(data.sources);
             }
 
-            // Clear the selected text after successfully sending the message
-            state.selectedText = null;
+            // Clear the selected text cache after successfully sending the message
+            state.selectedTextCache = null;
             hideSelectedTextIndicator();
         } catch (error) {
             // Remove loading message
             removeMessage(loadingMsg);
 
-            // Show error message
-            let errorMessage = 'Sorry, I encountered an error. Please try again.';
-            if (error.message.includes('Failed to fetch')) {
-                errorMessage = 'Unable to connect to the backend service. Please check your internet connection.';
+            // Show improved error message based on error type
+            let errorMessage = 'Sorry, I encountered an error processing your request. Please try again.';
+
+            if (error.message.includes('Backend service temporarily unavailable')) {
+                errorMessage = 'Backend service is currently unavailable. The RAG chatbot may not be deployed yet or may be experiencing issues. Please check the deployment status.';
+            } else if (error.message.includes('Failed to fetch')) {
+                errorMessage = 'Unable to connect to the backend service. Please check your internet connection and backend deployment status.';
+            } else if (error.message.includes('NetworkError')) {
+                errorMessage = 'Network error occurred. Please check your connection and try again.';
             }
+
             addMessage(errorMessage, 'error');
+            console.error('Chat error:', error);
         }
     }
 
@@ -378,6 +403,27 @@
         sourcesDiv.innerHTML = sourcesList;
 
         elements.messages.appendChild(sourcesDiv);
+        elements.messages.scrollTop = elements.messages.scrollHeight;
+    }
+
+    // Add context badge to chat UI
+    function addContextBadge(text) {
+        const badgeDiv = document.createElement('div');
+        badgeDiv.className = 'chatbot-context-badge';
+        badgeDiv.style.cssText = `
+            margin-top: 8px;
+            padding: 4px 8px;
+            background: #d1fae5;
+            color: #065f46;
+            border-radius: 12px;
+            font-size: 11px;
+            display: inline-block;
+            margin-bottom: 8px;
+        `;
+
+        badgeDiv.textContent = text;
+
+        elements.messages.appendChild(badgeDiv);
         elements.messages.scrollTop = elements.messages.scrollHeight;
     }
 

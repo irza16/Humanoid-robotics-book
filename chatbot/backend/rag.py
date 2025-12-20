@@ -95,10 +95,7 @@ class RAGPipeline:
             # Build the prompt based on whether selected text is provided
             if selected_text:
                 system_prompt = f"""
-                You are a helpful tutor for the Physical AI & Humanoid Robotics book.
-                Use the following retrieved content as context to answer the user's question.
-                Always provide answers based ONLY on the provided context.
-                If the answer is not available in the context, say so clearly.
+                You are an expert tutor for the Physical AI & Humanoid Robotics book. Provide comprehensive, well-structured answers using complete sentences. Do not repeat information unnecessarily. Base all answers strictly on the provided context. If information is not available in the context, clearly state this. Organize your response logically with clear explanations.
 
                 Retrieved content for context:
                 {context_str}
@@ -109,14 +106,11 @@ class RAGPipeline:
 
                 Question: {question}
 
-                Please answer the question focusing on the selected text and using the retrieved content as context.
+                Answer the question thoroughly, focusing on the selected text and using the retrieved content as context. Provide detailed explanations in complete sentences without unnecessary repetition.
                 """
             else:
                 system_prompt = f"""
-                You are a helpful tutor for the Physical AI & Humanoid Robotics book.
-                Use the following retrieved content as context to answer the user's question.
-                Always provide answers based ONLY on the provided context.
-                If the answer is not available in the context, say so clearly.
+                You are an expert tutor for the Physical AI & Humanoid Robotics book. Provide comprehensive, well-structured answers using complete sentences. Do not repeat information unnecessarily. Base all answers strictly on the provided context. If information is not available in the context, clearly state this. Organize your response logically with clear explanations.
 
                 Retrieved content for context:
                 {context_str}
@@ -125,10 +119,10 @@ class RAGPipeline:
                 user_prompt = f"""
                 Question: {question}
 
-                Please answer the question using the retrieved content as context.
+                Answer the question thoroughly using the retrieved content as context. Provide detailed explanations in complete sentences without unnecessary repetition.
                 """
 
-            # Call the OpenAI-compatible API (Gemini)
+            # Call the OpenAI-compatible API (Gemini) with increased max_tokens for better answers
             response = self.client.chat.completions.create(
                 model=settings.llm_model,
                 messages=[
@@ -136,21 +130,28 @@ class RAGPipeline:
                     {"role": "user", "content": user_prompt}
                 ],
                 temperature=settings.temperature,
-                max_tokens=settings.max_tokens
+                max_tokens=800  # Increased from default to allow more comprehensive answers
             )
 
-            # Extract the answer from the response
-            answer = response.choices[0].message.content if response.choices else "I don't have information about that in the book."
+            # Extract the answer from the response with proper error handling
+            if response and hasattr(response, 'choices') and response.choices:
+                choice = response.choices[0]
+                if choice and hasattr(choice, 'message') and choice.message:
+                    answer = choice.message.content if hasattr(choice.message, 'content') else "I don't have information about that in the book."
+                else:
+                    answer = "I don't have information about that in the book."
+            else:
+                answer = "I don't have information about that in the book."
 
             # Format the sources from the retrieved documents
             sources = []
             for doc in retrieved_docs:
                 if doc.get('url'):
                     source = {
-                        "url": doc.get("url", ""),
-                        "title": doc.get("title", ""),
-                        "content": doc.get("text", "")[:200] + "..." if len(doc.get("text", "")) > 200 else doc.get("text", ""),
-                        "score": doc.get("score", 0.0)
+                        "url": doc.get("url", "") or "",
+                        "title": doc.get("title", "") or "",
+                        "content": (doc.get("text", "") or "")[:200] + "..." if len(doc.get("text", "") or "") > 200 else (doc.get("text", "") or ""),
+                        "score": doc.get("score", 0.0) or 0.0
                     }
                     sources.append(source)
 
@@ -160,6 +161,27 @@ class RAGPipeline:
         except Exception as e:
             logger.error(f"Error processing query: {str(e)}")
             raise
+
+    def _remove_duplicate_sentences(self, text: str) -> str:
+        """Remove duplicate sentences from the generated text"""
+        if not text:
+            return text
+
+        import re
+        # Split text into sentences
+        sentences = re.split(r'(?<=[.!?])\s+', text)
+
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_sentences = []
+        for sentence in sentences:
+            # Normalize the sentence for comparison
+            normalized = re.sub(r'\s+', ' ', sentence.strip().lower())
+            if normalized and normalized not in seen:
+                seen.add(normalized)
+                unique_sentences.append(sentence.strip())
+
+        return ' '.join(unique_sentences)
 
 
 # Global RAG pipeline instance
