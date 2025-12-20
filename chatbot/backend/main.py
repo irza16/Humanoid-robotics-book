@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, field_validator
 from typing import Optional, List
@@ -132,7 +133,6 @@ class ChatResponse(BaseModel):
 @app.options("/")
 async def root_options():
     """Handle preflight OPTIONS request for root endpoint"""
-    from fastapi.responses import Response
     return Response(status_code=200)
 
 @app.get("/")
@@ -142,7 +142,6 @@ async def root():
 @app.options("/health")
 async def health_options():
     """Handle preflight OPTIONS request for health endpoint"""
-    from fastapi.responses import Response
     return Response(status_code=200)
 
 @app.get("/health")
@@ -158,7 +157,6 @@ async def health_check():
 @app.options("/chat")
 async def chat_options():
     """Handle preflight OPTIONS request for /chat endpoint"""
-    from fastapi.responses import Response
     return Response(status_code=200)
 
 @app.post("/chat", response_model=ChatResponse)
@@ -246,7 +244,6 @@ async def chat_endpoint(chat_request: ChatRequest):
 @app.options("/ingest")
 async def ingest_options():
     """Handle preflight OPTIONS request for ingest endpoint"""
-    from fastapi.responses import Response
     return Response(status_code=200)
 
 @app.post("/ingest")
@@ -285,7 +282,6 @@ async def ingest_content(request: Request):
 @app.options("/stats")
 async def stats_options():
     """Handle preflight OPTIONS request for stats endpoint"""
-    from fastapi.responses import Response
     return Response(status_code=200)
 
 @app.get("/stats")
