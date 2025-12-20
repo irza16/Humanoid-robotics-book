@@ -129,9 +129,21 @@ class ChatResponse(BaseModel):
     session_id: str
 
 
+@app.options("/")
+async def root_options():
+    """Handle preflight OPTIONS request for root endpoint"""
+    from fastapi.responses import Response
+    return Response(status_code=200)
+
 @app.get("/")
 async def root():
     return {"message": "RAG Chatbot API is running"}
+
+@app.options("/health")
+async def health_options():
+    """Handle preflight OPTIONS request for health endpoint"""
+    from fastapi.responses import Response
+    return Response(status_code=200)
 
 @app.get("/health")
 async def health_check():
@@ -142,6 +154,12 @@ async def health_check():
         "version": "1.0.0"
     }
 
+
+@app.options("/chat")
+async def chat_options():
+    """Handle preflight OPTIONS request for /chat endpoint"""
+    from fastapi.responses import Response
+    return Response(status_code=200)
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat_request: ChatRequest):
@@ -225,6 +243,12 @@ async def chat_endpoint(chat_request: ChatRequest):
         print(f"Error in chat endpoint: {str(e)}")  # Add more verbose logging
         raise HTTPException(status_code=500, detail=f"Error processing chat request: {str(e)}")
 
+@app.options("/ingest")
+async def ingest_options():
+    """Handle preflight OPTIONS request for ingest endpoint"""
+    from fastapi.responses import Response
+    return Response(status_code=200)
+
 @app.post("/ingest")
 async def ingest_content(request: Request):
     """Ingest book content to vector database"""
@@ -257,6 +281,12 @@ async def ingest_content(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error ingesting content: {str(e)}")
 
+
+@app.options("/stats")
+async def stats_options():
+    """Handle preflight OPTIONS request for stats endpoint"""
+    from fastapi.responses import Response
+    return Response(status_code=200)
 
 @app.get("/stats")
 async def get_stats():
