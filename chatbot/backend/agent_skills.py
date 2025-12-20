@@ -72,16 +72,21 @@ def search_module_content(module_name: str, query: str) -> List[str]:
             limit=settings.top_k_chunks
         )
 
-        # Extract text content from results
-        retrieved_texts = []
+        # Extract full document information from results
+        retrieved_docs = []
         for point in results.points:
             payload = point.payload
-            text = payload.get("text", "")
-            if text:
-                retrieved_texts.append(text)
+            doc_info = {
+                "text": payload.get("text", ""),
+                "url": payload.get("url", ""),
+                "title": payload.get("title", ""),
+                "score": point.score  # Similarity score
+            }
+            if doc_info["text"]:
+                retrieved_docs.append(doc_info)
 
-        logger.info(f"Found {len(retrieved_texts)} results for query in {collection_name}")
-        return retrieved_texts
+        logger.info(f"Found {len(retrieved_docs)} results for query in {collection_name}")
+        return retrieved_docs
 
     except Exception as e:
         logger.error(f"Error in search_module_content: {str(e)}")
@@ -293,16 +298,21 @@ def _fallback_search(query: str) -> List[str]:
             limit=settings.top_k_chunks
         )
 
-        # Extract text content from results
-        retrieved_texts = []
+        # Extract full document information from results
+        retrieved_docs = []
         for point in results.points:
             payload = point.payload
-            text = payload.get("text", "")
-            if text:
-                retrieved_texts.append(text)
+            doc_info = {
+                "text": payload.get("text", ""),
+                "url": payload.get("url", ""),
+                "title": payload.get("title", ""),
+                "score": point.score  # Similarity score
+            }
+            if doc_info["text"]:
+                retrieved_docs.append(doc_info)
 
-        logger.info(f"Fallback search found {len(retrieved_texts)} results for query")
-        return retrieved_texts
+        logger.info(f"Fallback search found {len(retrieved_docs)} results for query")
+        return retrieved_docs
 
     except Exception as e:
         logger.error(f"Error in fallback search: {str(e)}")

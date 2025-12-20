@@ -52,10 +52,10 @@ class ROS2Agent(Agent):
         """Process a ROS 2 related query."""
         try:
             # Use the specialized search for module 1 content
-            context_texts = search_module_content("module-1-ros2", question)
+            context_docs = search_module_content("module-1-ros2", question)
 
             # Build the context from retrieved documents
-            context_str = "\n".join([f"Context {i+1}: {text[:500]}..." for i, text in enumerate(context_texts[:3])])
+            context_str = "\n".join([f"Context {i+1}: {doc['text'][:500]}..." for i, doc in enumerate(context_docs[:3])])
 
             # Build the prompt based on whether selected text is provided
             if selected_text:
@@ -108,14 +108,14 @@ class ROS2Agent(Agent):
             else:
                 answer = "I don't have information about that in the book."
 
-            # Format the sources from the retrieved documents
+            # Format the sources from the retrieved documents using real metadata
             sources = []
-            for i, text in enumerate(context_texts):
+            for i, doc in enumerate(context_docs):
                 source = {
-                    "url": f"module-1-ros2-source-{i+1}",
-                    "title": f"ROS 2 Content {i+1}",
-                    "content": text[:200] + "..." if len(text) > 200 else text,
-                    "score": 1.0  # Placeholder score
+                    "url": doc.get("url", ""),
+                    "title": doc.get("title", f"ROS 2 Content {i+1}"),
+                    "content": doc["text"][:200] + "..." if len(doc["text"]) > 200 else doc["text"],
+                    "score": doc.get("score", 1.0)
                 }
                 sources.append(source)
 
@@ -151,10 +151,10 @@ class SimulationAgent(Agent):
         """Process a simulation related query."""
         try:
             # Use the specialized search for module 2 content
-            context_texts = search_module_content("module-2-simulation", question)
+            context_docs = search_module_content("module-2-simulation", question)
 
             # Build the context from retrieved documents
-            context_str = "\n".join([f"Context {i+1}: {text[:500]}..." for i, text in enumerate(context_texts[:3])])
+            context_str = "\n".join([f"Context {i+1}: {doc['text'][:500]}..." for i, doc in enumerate(context_docs[:3])])
 
             # Build the prompt based on whether selected text is provided
             if selected_text:
@@ -207,14 +207,14 @@ class SimulationAgent(Agent):
             else:
                 answer = "I don't have information about that in the book."
 
-            # Format the sources from the retrieved documents
+            # Format the sources from the retrieved documents using real metadata
             sources = []
-            for i, text in enumerate(context_texts):
+            for i, doc in enumerate(context_docs):
                 source = {
-                    "url": f"module-2-simulation-source-{i+1}",
-                    "title": f"Simulation Content {i+1}",
-                    "content": text[:200] + "..." if len(text) > 200 else text,
-                    "score": 1.0  # Placeholder score
+                    "url": doc.get("url", ""),
+                    "title": doc.get("title", f"Simulation Content {i+1}"),
+                    "content": doc["text"][:200] + "..." if len(doc["text"]) > 200 else doc["text"],
+                    "score": doc.get("score", 1.0)
                 }
                 sources.append(source)
 
@@ -250,10 +250,10 @@ class IsaacAgent(Agent):
         """Process an Isaac related query."""
         try:
             # Use the specialized search for module 3 content
-            context_texts = search_module_content("module-3-isaac", question)
+            context_docs = search_module_content("module-3-isaac", question)
 
             # Build the context from retrieved documents
-            context_str = "\n".join([f"Context {i+1}: {text[:500]}..." for i, text in enumerate(context_texts[:3])])
+            context_str = "\n".join([f"Context {i+1}: {doc['text'][:500]}..." for i, doc in enumerate(context_docs[:3])])
 
             # Build the prompt based on whether selected text is provided
             if selected_text:
@@ -306,14 +306,14 @@ class IsaacAgent(Agent):
             else:
                 answer = "I don't have information about that in the book."
 
-            # Format the sources from the retrieved documents
+            # Format the sources from the retrieved documents using real metadata
             sources = []
-            for i, text in enumerate(context_texts):
+            for i, doc in enumerate(context_docs):
                 source = {
-                    "url": f"module-3-isaac-source-{i+1}",
-                    "title": f"Isaac Content {i+1}",
-                    "content": text[:200] + "..." if len(text) > 200 else text,
-                    "score": 1.0  # Placeholder score
+                    "url": doc.get("url", ""),
+                    "title": doc.get("title", f"Isaac Content {i+1}"),
+                    "content": doc["text"][:200] + "..." if len(doc["text"]) > 200 else doc["text"],
+                    "score": doc.get("score", 1.0)
                 }
                 sources.append(source)
 
@@ -349,10 +349,10 @@ class VLAAgent(Agent):
         """Process a VLA related query."""
         try:
             # Use the specialized search for module 4 content
-            context_texts = search_module_content("module-4-vla", question)
+            context_docs = search_module_content("module-4-vla", question)
 
             # Build the context from retrieved documents
-            context_str = "\n".join([f"Context {i+1}: {text[:500]}..." for i, text in enumerate(context_texts[:3])])
+            context_str = "\n".join([f"Context {i+1}: {doc['text'][:500]}..." for i, doc in enumerate(context_docs[:3])])
 
             # Build the prompt based on whether selected text is provided
             if selected_text:
@@ -405,14 +405,14 @@ class VLAAgent(Agent):
             else:
                 answer = "I don't have information about that in the book."
 
-            # Format the sources from the retrieved documents
+            # Format the sources from the retrieved documents using real metadata
             sources = []
-            for i, text in enumerate(context_texts):
+            for i, doc in enumerate(context_docs):
                 source = {
-                    "url": f"module-4-vla-source-{i+1}",
-                    "title": f"VLA Content {i+1}",
-                    "content": text[:200] + "..." if len(text) > 200 else text,
-                    "score": 1.0  # Placeholder score
+                    "url": doc.get("url", ""),
+                    "title": doc.get("title", f"VLA Content {i+1}"),
+                    "content": doc["text"][:200] + "..." if len(doc["text"]) > 200 else doc["text"],
+                    "score": doc.get("score", 1.0)
                 }
                 sources.append(source)
 
