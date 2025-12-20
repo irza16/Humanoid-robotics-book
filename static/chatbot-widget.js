@@ -6,7 +6,7 @@
 
     // Configuration
     const CONFIG = {
-        backendUrl: 'https://superb-joy.up.railway.app',  // Hardcoded Railway URL
+        backendUrl: 'https://superb-joy-production-8bd7.up.railway.app',  // Hardcoded Railway URL
         maxMessageLength: 2000,
         maxSelectedTextLength: 5000,
         maxRetries: 3,  // Increased retries for Railway cold starts
@@ -21,6 +21,13 @@
     // Helper function to make requests with timeout and retry logic
     async function makeRequestWithRetry(url, options = {}) {
         console.log('makeRequestWithRetry called with:', { url, options });
+        // Additional URL validation and debugging
+        console.log('Full URL being requested:', url);
+        try {
+            console.log('URL parsed:', new URL(url));
+        } catch (urlError) {
+            console.error('Invalid URL format:', url, urlError);
+        }
         let lastError = null;
 
         for (let attempt = 0; attempt <= CONFIG.maxRetries; attempt++) {
@@ -35,9 +42,15 @@
                 // Make the actual fetch request
                 const fetchPromise = fetch(url, {
                     ...options,
-                    // Ensure we handle potential network issues
-                    mode: 'cors',
-                    credentials: 'omit'  // Don't send cookies unless needed
+                    // Remove explicit mode: 'cors' as it's default for cross-origin
+                    // mode: 'cors',  // Commenting out to let browser handle automatically
+                    credentials: 'omit',  // Don't send cookies unless needed
+                    // Add explicit headers that might help with Railway
+                    headers: {
+                        ...options.headers,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    }
                 });
 
                 console.log('Making fetch request to:', url);
@@ -339,11 +352,14 @@
             console.log('Sending payload:', payload);
 
             // Send request to backend with retry logic and timeout
-            console.log('Making request to:', `${CONFIG.backendUrl}/chat`);
-            const response = await makeRequestWithRetry(`${CONFIG.backendUrl}/chat`, {
+            const chatUrl = `${CONFIG.backendUrl}/chat`;
+            console.log('Making request to:', chatUrl);
+            console.log('Chat URL object:', new URL(chatUrl));
+            const response = await makeRequestWithRetry(chatUrl, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(payload)
             });
@@ -523,8 +539,10 @@
     // Health check function to test backend connectivity
     async function performHealthCheck() {
         console.log('Performing health check...');
+        const healthUrl = `${CONFIG.backendUrl}/health`;
+        console.log('Health check URL:', healthUrl);
         try {
-            const response = await fetch(`${CONFIG.backendUrl}/health`);
+            const response = await fetch(healthUrl);
             const data = await response.json();
             console.log('Health check response:', data);
 
@@ -538,6 +556,7 @@
             }
         } catch (error) {
             console.error('✗ Health check failed with error:', error);
+            console.error('Health check URL that failed:', healthUrl);
             return false;
         }
     }
