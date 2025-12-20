@@ -3,20 +3,20 @@ from typing import List, Optional
 
 
 class Settings(BaseSettings):
-    # API Keys
-    cohere_api_key: str
-    gemini_api_key: str
+    # API Keys (Optional for basic functionality)
+    cohere_api_key: Optional[str] = None
+    gemini_api_key: Optional[str] = None
 
-    # Qdrant Configuration
-    qdrant_url: str
-    qdrant_api_key: str
+    # Qdrant Configuration (Optional for basic functionality)
+    qdrant_url: Optional[str] = None
+    qdrant_api_key: Optional[str] = None
 
-    # Database Configuration
-    neon_database_url: str
+    # Database Configuration (Optional for basic functionality)
+    neon_database_url: Optional[str] = None
 
     # Security
-    secret_key: str
-    allowed_origins: List[str]
+    secret_key: str = "dev-secret-key-change-in-production"  # Default for testing
+    allowed_origins: List[str] = ["*"]  # Default for testing
 
     # RAG Configuration
     max_question_length: int = 2000
