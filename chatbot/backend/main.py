@@ -1,5 +1,4 @@
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, field_validator
 from typing import Optional, List
@@ -65,13 +64,13 @@ except Exception as e:
 
 app = FastAPI(title="RAG Chatbot API", version="1.0.0")
 
-# Configure CORS - temporarily permissive for debugging
+# Configure CORS to allow all origins, methods, headers, and credentials
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Debug only - will narrow down later
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods for debugging
-    allow_headers=["*"],  # Allow all headers for debugging
+    allow_methods=["*"],
+    allow_headers=["*"],
     # Additional options for better CORS handling
     allow_origin_regex=None,
     expose_headers=["*"],
@@ -130,19 +129,9 @@ class ChatResponse(BaseModel):
     session_id: str
 
 
-@app.options("/")
-async def root_options():
-    """Handle preflight OPTIONS request for root endpoint"""
-    return Response(status_code=200)
-
 @app.get("/")
 async def root():
     return {"message": "RAG Chatbot API is running"}
-
-@app.options("/health")
-async def health_options():
-    """Handle preflight OPTIONS request for health endpoint"""
-    return Response(status_code=200)
 
 @app.get("/health")
 async def health_check():
@@ -153,11 +142,6 @@ async def health_check():
         "version": "1.0.0"
     }
 
-
-@app.options("/chat")
-async def chat_options():
-    """Handle preflight OPTIONS request for /chat endpoint"""
-    return Response(status_code=200)
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat_request: ChatRequest):
@@ -241,11 +225,6 @@ async def chat_endpoint(chat_request: ChatRequest):
         print(f"Error in chat endpoint: {str(e)}")  # Add more verbose logging
         raise HTTPException(status_code=500, detail=f"Error processing chat request: {str(e)}")
 
-@app.options("/ingest")
-async def ingest_options():
-    """Handle preflight OPTIONS request for ingest endpoint"""
-    return Response(status_code=200)
-
 @app.post("/ingest")
 async def ingest_content(request: Request):
     """Ingest book content to vector database"""
@@ -278,11 +257,6 @@ async def ingest_content(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error ingesting content: {str(e)}")
 
-
-@app.options("/stats")
-async def stats_options():
-    """Handle preflight OPTIONS request for stats endpoint"""
-    return Response(status_code=200)
 
 @app.get("/stats")
 async def get_stats():
