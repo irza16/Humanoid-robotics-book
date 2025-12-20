@@ -18,14 +18,10 @@ import logging
 # Load environment variables
 load_dotenv()
 
-# Validate required environment variables are set
+# Validate required environment variables are set (only for production use)
+# For basic functionality, we can run without these
 required_vars = [
-    'cohere_api_key',
-    'gemini_api_key',
-    'qdrant_url',
-    'qdrant_api_key',
-    'neon_database_url',
-    'secret_key'
+    'secret_key'  # This is the only truly required variable
 ]
 
 missing_vars = []
@@ -36,9 +32,67 @@ for var in required_vars:
 if missing_vars:
     raise ValueError(f"Missing required environment variables: {', '.join(missing_vars)}")
 
-# Initialize database and RAG pipeline
-init_db_manager(settings.neon_database_url)
-init_rag_pipeline()
+# Log warning if optional variables are missing for RAG functionality
+optional_vars = [
+    'cohere_api_key',
+    'gemini_api_key',
+    'qdrant_url',
+    'qdrant_api_key',
+    'neon_database_url'
+]
+
+missing_optional = []
+for var in optional_vars:
+    if not getattr(settings, var, None):
+        missing_optional.append(var)
+
+if missing_optional:
+    print(f"WARNING: Missing optional environment variables for full RAG functionality: {', '.join(missing_optional)}")
+    print("Backend will start but some features may be limited.")
+
+# Initialize database and RAG pipeline (with error handling for missing config)
+try:
+    if settings.neon_database_url:
+        init_db_manager(settings.neon_database_url)
+    else:
+        print("Database URL not provided, skipping database initialization")
+        # Define a mock db_manager for when database is not available
+        class MockDBManager:
+            def create_session(self):
+                return "mock_session_id"
+            def add_message(self, **kwargs):
+                print("Database not configured, skipping message storage")
+            def get_all_sessions(self):
+                return []
+            def get_session_messages(self, session_id):
+                return []
+        # This will be handled in the actual endpoints where needed
+except Exception as e:
+    print(f"Database initialization failed: {e}")
+
+# Track service availability
+rag_pipeline_available = False
+db_manager_available = False
+
+try:
+    if settings.cohere_api_key and settings.qdrant_url:
+        init_rag_pipeline()
+        rag_pipeline_available = True
+        print("RAG pipeline initialized successfully")
+    else:
+        print("RAG configuration not provided, skipping RAG pipeline initialization")
+except Exception as e:
+    print(f"RAG pipeline initialization failed: {e}")
+
+try:
+    if settings.neon_database_url:
+        init_db_manager(settings.neon_database_url)
+        db_manager_available = True
+        print("Database manager initialized successfully")
+    else:
+        print("Database URL not provided, skipping database initialization")
+except Exception as e:
+    print(f"Database initialization failed: {e}")
 
 app = FastAPI(title="RAG Chatbot API", version="1.0.0")
 
@@ -153,44 +207,59 @@ async def chat_endpoint(chat_request: ChatRequest):
         else:
             session_id = chat_request.session_id
 
-        # Get the RAG pipeline
-        rag_pipeline = get_rag_pipeline()
-
-        # Process the query through the RAG pipeline
-        # The new process_query returns answer, sources, and subagent_used
-        result = rag_pipeline.process_query(sanitized_question, sanitized_selected_text)
-        answer, sources, subagent_used = result
+        # Get the RAG pipeline or handle unavailability
+        if rag_pipeline_available:
+            try:
+                rag_pipeline = get_rag_pipeline()
+                # Process the query through the RAG pipeline
+                # The new process_query returns answer, sources, and subagent_used
+                result = rag_pipeline.process_query(sanitized_question, sanitized_selected_text)
+                answer, sources, subagent_used = result
+            except Exception as rag_error:
+                print(f"RAG pipeline error: {rag_error}")
+                # Fallback response when RAG is not available
+                answer = f"I received your question: '{sanitized_question}'. However, the RAG system is not properly configured. The backend is running but requires API keys and database setup for full functionality."
+                sources = []
+                subagent_used = "fallback"
+        else:
+            # Fallback response when RAG is not available
+            answer = f"I received your question: '{sanitized_question}'. However, the RAG system is not properly configured. The backend is running but requires API keys and database setup for full functionality."
+            sources = []
+            subagent_used = "fallback"
 
         # Store the interaction in the database (optional - won't break if database fails)
-        try:
-            db_manager = get_db_manager()
-            print("Got database manager, attempting to create session...")
+        if db_manager_available:
+            try:
+                db_manager = get_db_manager()
+                print("Got database manager, attempting to create session...")
 
-            # If this is a new session, create it
-            if not chat_request.session_id:
-                db_session_id = db_manager.create_session()
-                print(f"Created new session with ID: {db_session_id}")
-            else:
-                # For existing session, we need to validate it exists or create a new one
-                # In a real implementation, we might validate the session exists
-                # For now, we'll just create a new session for simplicity
-                db_session_id = db_manager.create_session()  # Just create a new session for now
-                print(f"Created new session with ID: {db_session_id}")
+                # If this is a new session, create it
+                if not chat_request.session_id:
+                    db_session_id = db_manager.create_session()
+                    print(f"Created new session with ID: {db_session_id}")
+                else:
+                    # For existing session, we need to validate it exists or create a new one
+                    # In a real implementation, we might validate the session exists
+                    # For now, we'll just create a new session for simplicity
+                    db_session_id = db_manager.create_session()  # Just create a new session for now
+                    print(f"Created new session with ID: {db_session_id}")
 
-            # Store the message with sources
-            print("Attempting to add message to database...")
-            db_manager.add_message(
-                session_id=db_session_id,
-                question=sanitized_question,
-                answer=answer,
-                selected_text=sanitized_selected_text,
-                sources=[source.get("url", "") or "" for source in sources]  # Store just URLs for now
-            )
-            print("Message added to database successfully")
-        except Exception as db_error:
-            print(f"Database operation failed (this is optional): {str(db_error)}")
-            # Continue without database storage - the core functionality should still work
-            db_session_id = None  # We'll just use None if database fails
+                # Store the message with sources
+                print("Attempting to add message to database...")
+                db_manager.add_message(
+                    session_id=db_session_id,
+                    question=sanitized_question,
+                    answer=answer,
+                    selected_text=sanitized_selected_text,
+                    sources=[source.get("url", "") or "" for source in sources]  # Store just URLs for now
+                )
+                print("Message added to database successfully")
+            except Exception as db_error:
+                print(f"Database operation failed (this is optional): {str(db_error)}")
+                # Continue without database storage - the core functionality should still work
+                db_session_id = None  # We'll just use None if database fails
+        else:
+            print("Database not available, skipping storage")
 
         # Format sources for response - handle potential empty sources
         print("Formatting sources for response...")
