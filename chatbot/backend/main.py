@@ -159,34 +159,21 @@ class ChatResponse(BaseModel):
     answer: str
     sources: List[Source]
     session_id: str
-    subagent_used: Optional[str] = None  # Added for transparency about which subagent processed the request
 
-
-@app.options("/")
-async def root_options():
-    """Handle preflight OPTIONS request for root endpoint"""
-    from fastapi.responses import Response
-    return Response(status_code=200)
 
 @app.get("/")
 async def root():
-    return {"status": "ok", "message": "RAG Chatbot API"}
-
-@app.options("/health")
-async def health_options():
-    """Handle preflight OPTIONS request for health endpoint"""
-    from fastapi.responses import Response
-    return Response(status_code=200)
+    return {"message": "RAG Chatbot API is running"}
 
 @app.get("/health")
-async def health():
-    return {"status": "healthy", "service": "chatbot-backend"}
+async def health_check():
+    """Health check endpoint"""
+    return {
+        "status": "healthy",
+        "timestamp": datetime.now().isoformat(),
+        "version": "1.0.0"
+    }
 
-@app.options("/chat")
-async def chat_options():
-    """Handle preflight OPTIONS request for /chat endpoint"""
-    from fastapi.responses import Response
-    return Response(status_code=200)
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(chat_request: ChatRequest):
@@ -207,59 +194,42 @@ async def chat_endpoint(chat_request: ChatRequest):
         else:
             session_id = chat_request.session_id
 
-        # Get the RAG pipeline or handle unavailability
-        if rag_pipeline_available:
-            try:
-                rag_pipeline = get_rag_pipeline()
-                # Process the query through the RAG pipeline
-                # The new process_query returns answer, sources, and subagent_used
-                result = rag_pipeline.process_query(sanitized_question, sanitized_selected_text)
-                answer, sources, subagent_used = result
-            except Exception as rag_error:
-                print(f"RAG pipeline error: {rag_error}")
-                # Fallback response when RAG is not available
-                answer = f"I received your question: '{sanitized_question}'. However, the RAG system is not properly configured. The backend is running but requires API keys and database setup for full functionality."
-                sources = []
-                subagent_used = "fallback"
-        else:
-            # Fallback response when RAG is not available
-            answer = f"I received your question: '{sanitized_question}'. However, the RAG system is not properly configured. The backend is running but requires API keys and database setup for full functionality."
-            sources = []
-            subagent_used = "fallback"
+        # Get the RAG pipeline
+        rag_pipeline = get_rag_pipeline()
+
+        # Process the query through the RAG pipeline
+        answer, sources = rag_pipeline.process_query(sanitized_question, sanitized_selected_text)
 
         # Store the interaction in the database (optional - won't break if database fails)
-        if db_manager_available:
-            try:
-                db_manager = get_db_manager()
-                print("Got database manager, attempting to create session...")
+        try:
+            db_manager = get_db_manager()
+            print("Got database manager, attempting to create session...")
 
-                # If this is a new session, create it
-                if not chat_request.session_id:
-                    db_session_id = db_manager.create_session()
-                    print(f"Created new session with ID: {db_session_id}")
-                else:
-                    # For existing session, we need to validate it exists or create a new one
-                    # In a real implementation, we might validate the session exists
-                    # For now, we'll just create a new session for simplicity
-                    db_session_id = db_manager.create_session()  # Just create a new session for now
-                    print(f"Created new session with ID: {db_session_id}")
+            # If this is a new session, create it
+            if not chat_request.session_id:
+                db_session_id = db_manager.create_session()
+                print(f"Created new session with ID: {db_session_id}")
+            else:
+                # For existing session, we need to validate it exists or create a new one
+                # In a real implementation, we might validate the session exists
+                # For now, we'll just create a new session for simplicity
+                db_session_id = db_manager.create_session()  # Just create a new session for now
+                print(f"Created new session with ID: {db_session_id}")
 
-                # Store the message with sources
-                print("Attempting to add message to database...")
-                db_manager.add_message(
-                    session_id=db_session_id,
-                    question=sanitized_question,
-                    answer=answer,
-                    selected_text=sanitized_selected_text,
-                    sources=[source.get("url", "") or "" for source in sources]  # Store just URLs for now
-                )
-                print("Message added to database successfully")
-            except Exception as db_error:
-                print(f"Database operation failed (this is optional): {str(db_error)}")
-                # Continue without database storage - the core functionality should still work
-                db_session_id = None  # We'll just use None if database fails
-        else:
-            print("Database not available, skipping storage")
+            # Store the message with sources
+            print("Attempting to add message to database...")
+            db_manager.add_message(
+                session_id=db_session_id,
+                question=sanitized_question,
+                answer=answer,
+                selected_text=sanitized_selected_text,
+                sources=[source.get("url", "") or "" for source in sources]  # Store just URLs for now
+            )
+            print("Message added to database successfully")
+        except Exception as db_error:
+            print(f"Database operation failed (this is optional): {str(db_error)}")
+            # Continue without database storage - the core functionality should still work
+            db_session_id = None  # We'll just use None if database fails
 
         # Format sources for response - handle potential empty sources
         print("Formatting sources for response...")
@@ -278,8 +248,7 @@ async def chat_endpoint(chat_request: ChatRequest):
         response = ChatResponse(
             answer=answer,
             sources=formatted_sources,
-            session_id=session_id,
-            subagent_used=subagent_used  # Include which subagent was used for transparency
+            session_id=session_id
         )
         print("ChatResponse created successfully")
 
@@ -287,13 +256,6 @@ async def chat_endpoint(chat_request: ChatRequest):
     except Exception as e:
         print(f"Error in chat endpoint: {str(e)}")  # Add more verbose logging
         raise HTTPException(status_code=500, detail=f"Error processing chat request: {str(e)}")
-
-
-@app.options("/ingest")
-async def ingest_options():
-    """Handle preflight OPTIONS request for ingest endpoint"""
-    from fastapi.responses import Response
-    return Response(status_code=200)
 
 @app.post("/ingest")
 async def ingest_content(request: Request):
@@ -328,12 +290,6 @@ async def ingest_content(request: Request):
         raise HTTPException(status_code=500, detail=f"Error ingesting content: {str(e)}")
 
 
-@app.options("/stats")
-async def stats_options():
-    """Handle preflight OPTIONS request for stats endpoint"""
-    from fastapi.responses import Response
-    return Response(status_code=200)
-
 @app.get("/stats")
 async def get_stats():
     """Get usage statistics for analytics"""
@@ -360,23 +316,10 @@ async def get_stats():
         "active_sessions": active_sessions,
         "avg_response_time": 0,  # This would be calculated from logs in a real implementation
         "success_rate": 100.0,   # This would be calculated from logs in a real implementation
-        "timestamp": "2025-12-11T00:00:00"  # Simplified to avoid datetime issues
+        "timestamp": datetime.now().isoformat()  # Use proper datetime
     }
 
 
-@app.on_event("startup")
-async def startup_event():
-    print("=== STARTUP DEBUG ===")
-    print("Routes registered:")
-    for route in app.routes:
-        if hasattr(route, 'methods') and hasattr(route, 'path'):
-            print(f"  {route.methods} {route.path}")
-        else:
-            print(f"  {route}")
-    print("====================")
-
 if __name__ == "__main__":
     import uvicorn
-    import os
-    port = int(os.environ.get("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
