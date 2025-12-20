@@ -80,6 +80,11 @@ app.add_middleware(
 # Add request logging middleware
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
+    # 🚨 Let CORS preflight pass immediately to avoid middleware interference
+    if request.method == "OPTIONS":
+        response = await call_next(request)
+        return response
+
     start_time = time.time()
     logging.info(f"Request: {request.method} {request.url}")
     logging.info(f"Headers: {dict(request.headers)}")
