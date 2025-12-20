@@ -80,10 +80,6 @@ app.add_middleware(
 # Add request logging middleware
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
-    # 🚨 Let CORS preflight pass immediately
-    if request.method == "OPTIONS":
-        return await call_next(request)
-
     start_time = time.time()
     logging.info(f"Request: {request.method} {request.url}")
     logging.info(f"Headers: {dict(request.headers)}")
@@ -91,15 +87,12 @@ async def log_requests(request: Request, call_next):
     response = await call_next(request)
 
     process_time = time.time() - start_time
-    logging.info(
-        f"Response status: {response.status_code}, Process time: {process_time:.2f}s"
-    )
+    logging.info(f"Response status: {response.status_code}, Process time: {process_time:.2f}s")
 
     return response
 
-
 # Add error handlers
-#add_error_handlers(app)
+add_error_handlers(app)
 
 # Request/Response models
 class ChatRequest(BaseModel):
@@ -297,4 +290,6 @@ async def get_stats():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import os
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
