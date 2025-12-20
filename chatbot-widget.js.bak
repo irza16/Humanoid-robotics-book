@@ -6,7 +6,7 @@
 
     // Configuration
     const CONFIG = {
-        backendUrl: 'https://superb-joy-production-8bd7.up.railway.app',  // Hardcoded Railway URL
+        backendUrl: 'https://superb-joy.up.railway.app',  // Hardcoded Railway URL
         maxMessageLength: 2000,
         maxSelectedTextLength: 5000,
         maxRetries: 3,  // Increased retries for Railway cold starts
