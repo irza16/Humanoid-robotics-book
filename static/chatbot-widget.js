@@ -14,7 +14,7 @@
             }
             // Default to Railway URL, but also check if we're in development
             const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            return isLocalhost ? 'http://localhost:8000' : 'https://superb-joy-production-8bd7.up.railway.app';
+            return isLocalhost ? 'http://localhost:8000' : 'https://superb-joy.up.railway.app';
         })(),
         maxMessageLength: 2000,
         maxSelectedTextLength: 5000

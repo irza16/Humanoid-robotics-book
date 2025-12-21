@@ -67,7 +67,7 @@ app = FastAPI(title="RAG Chatbot API", version="1.0.0")
 # Configure CORS to allow all origins, methods, headers, and credentials
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://irza16.github.io", "http://localhost:3000", "http://localhost:8000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -95,6 +95,7 @@ async def log_requests(request: Request, call_next):
     logging.info(f"Response status: {response.status_code}, Process time: {process_time:.2f}s")
 
     return response
+
 
 # Add error handlers
 add_error_handlers(app)
