@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-module-2-simulation/week-7-unity-integration" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Week 7: Unity Integration for Advanced Rendering | Physical AI &amp; Humanoid Robotics</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://irza16.github.io/Humanoid-robotics-book/img/social-card.svg"><meta data-rh="true" name="twitter:image" content="https://irza16.github.io/Humanoid-robotics-book/img/social-card.svg"><meta data-rh="true" property="og:url" content="https://irza16.github.io/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Week 7: Unity Integration for Advanced Rendering | Physical AI &amp; Humanoid Robotics"><meta data-rh="true" name="description" content="Overview"><meta data-rh="true" property="og:description" content="Overview"><link data-rh="true" rel="icon" href="/Humanoid-robotics-book/img/favicon.svg"><link data-rh="true" rel="canonical" href="https://irza16.github.io/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration"><link data-rh="true" rel="alternate" href="https://irza16.github.io/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration" hreflang="en"><link data-rh="true" rel="alternate" href="https://irza16.github.io/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Week 7: Unity Integration for Advanced Rendering","item":"https://irza16.github.io/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration"}]}</script><link rel="stylesheet" href="/Humanoid-robotics-book/assets/css/styles.20befa76.css">
+<script src="/Humanoid-robotics-book/assets/js/runtime~main.90045355.js" defer="defer"></script>
+<script src="/Humanoid-robotics-book/assets/js/main.60e687ab.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/Humanoid-robotics-book/"><div class="navbar__logo"><img src="/Humanoid-robotics-book/img/logo.svg" alt="Physical AI Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/Humanoid-robotics-book/img/logo.svg" alt="Physical AI Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Physical AI &amp; Humanoid Robotics</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/Humanoid-robotics-book/docs/intro">Course</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/irza16/Humanoid-robotics-book" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Humanoid-robotics-book/docs/intro"><span title="Introduction to Humanoid Robotics" class="linkLabel_WmDU">Introduction to Humanoid Robotics</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/Humanoid-robotics-book/docs/foundations/overview"><span title="Foundations" class="categoryLinkLabel_W154">Foundations</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/Humanoid-robotics-book/docs/module-1-ros2/overview"><span title="Module 1: ROS 2 Nervous System" class="categoryLinkLabel_W154">Module 1: ROS 2 Nervous System</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/Humanoid-robotics-book/docs/module-2-simulation/overview"><span title="Module 2: Digital Twin (Simulation)" class="categoryLinkLabel_W154">Module 2: Digital Twin (Simulation)</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-robotics-book/docs/module-2-simulation/overview"><span title="Module 2: The Digital Twin - Gazebo &amp; Unity" class="linkLabel_WmDU">Module 2: The Digital Twin - Gazebo &amp; Unity</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup"><span title="Week 6: Gazebo Environment Setup" class="linkLabel_WmDU">Week 6: Gazebo Environment Setup</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration"><span title="Week 7: Unity Integration for Advanced Rendering" class="linkLabel_WmDU">Week 7: Unity Integration for Advanced Rendering</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-robotics-book/docs/module-2-simulation/sensor-simulation"><span title="Sensor Simulation in Robotics" class="linkLabel_WmDU">Sensor Simulation in Robotics</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-robotics-book/docs/module-2-simulation/assignments"><span title="Module 2 Assignments: Simulation Projects and Exercises" class="linkLabel_WmDU">Module 2 Assignments: Simulation Projects and Exercises</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/Humanoid-robotics-book/docs/module-3-isaac/overview"><span title="Module 3: Isaac AI Brain" class="categoryLinkLabel_W154">Module 3: Isaac AI Brain</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/Humanoid-robotics-book/docs/module-4-vla/introduction"><span title="Module 4: Vision-Language-Action" class="categoryLinkLabel_W154">Module 4: Vision-Language-Action</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/Humanoid-robotics-book/docs/hardware-guide/workstation-specs"><span title="Hardware Guide" class="categoryLinkLabel_W154">Hardware Guide</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/Humanoid-robotics-book/docs/appendix/installation-guides"><span title="Appendix" class="categoryLinkLabel_W154">Appendix</span></a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/Humanoid-robotics-book/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Module 2: Digital Twin (Simulation)</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Week 7: Unity Integration for Advanced Rendering</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Week 7: Unity Integration for Advanced Rendering</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="overview">Overview<a href="#overview" class="hash-link" aria-label="Direct link to Overview" title="Direct link to Overview" translate="no">​</a></h2>
+<p>This week focuses on integrating Unity with your ROS 2 system for advanced rendering and visualization. You&#x27;ll learn to create photorealistic environments, implement high-quality sensor simulation, and use Unity for enhanced robot visualization and debugging.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="learning-objectives">Learning Objectives<a href="#learning-objectives" class="hash-link" aria-label="Direct link to Learning Objectives" title="Direct link to Learning Objectives" translate="no">​</a></h2>
+<p>By the end of this week, you will be able to:</p>
+<ul>
+<li class="">Set up Unity with ROS 2 integration packages</li>
+<li class="">Create realistic 3D environments for robot simulation</li>
+<li class="">Implement advanced sensor simulation in Unity</li>
+<li class="">Use Unity for robot debugging and visualization</li>
+<li class="">Understand the benefits and limitations of Unity vs Gazebo</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="unity-ros-integration-overview">Unity-ROS Integration Overview<a href="#unity-ros-integration-overview" class="hash-link" aria-label="Direct link to Unity-ROS Integration Overview" title="Direct link to Unity-ROS Integration Overview" translate="no">​</a></h2>
+<p>Unity provides high-fidelity rendering capabilities that complement Gazebo&#x27;s physics simulation. The integration allows you to:</p>
+<ul>
+<li class="">Visualize robot data in photorealistic environments</li>
+<li class="">Simulate advanced sensors with realistic rendering</li>
+<li class="">Create immersive interfaces for robot teleoperation</li>
+<li class="">Generate synthetic training data for AI models</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="setting-up-unity-with-ros-2">Setting Up Unity with ROS 2<a href="#setting-up-unity-with-ros-2" class="hash-link" aria-label="Direct link to Setting Up Unity with ROS 2" title="Direct link to Setting Up Unity with ROS 2" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="installing-unity">Installing Unity<a href="#installing-unity" class="hash-link" aria-label="Direct link to Installing Unity" title="Direct link to Installing Unity" translate="no">​</a></h3>
+<ol>
+<li class="">Download Unity Hub from the Unity website</li>
+<li class="">Install Unity Editor (2021.3 LTS or newer recommended)</li>
+<li class="">Create a new 3D project</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ros-2-integration-packages">ROS 2 Integration Packages<a href="#ros-2-integration-packages" class="hash-link" aria-label="Direct link to ROS 2 Integration Packages" title="Direct link to ROS 2 Integration Packages" translate="no">​</a></h3>
+<p>The Unity Robotics Hub provides packages for ROS 2 integration:</p>
+<ul>
+<li class=""><strong>ROS-TCP-Connector</strong>: Handles communication between Unity and ROS 2</li>
+<li class=""><strong>ROS-TCP-Endpoint</strong>: ROS 2 node that manages the connection</li>
+<li class=""><strong>Unity-Robotics-Helpers</strong>: Utilities for common robotics tasks</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="basic-connection-setup">Basic Connection Setup<a href="#basic-connection-setup" class="hash-link" aria-label="Direct link to Basic Connection Setup" title="Direct link to Basic Connection Setup" translate="no">​</a></h3>
+<ol>
+<li class="">Import ROS-TCP-Connector package into Unity</li>
+<li class="">Add ROSConnection object to your scene</li>
+<li class="">Configure the connection settings (IP, port)</li>
+<li class="">Run the ROS-TCP-Endpoint node in ROS 2</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="creating-realistic-environments">Creating Realistic Environments<a href="#creating-realistic-environments" class="hash-link" aria-label="Direct link to Creating Realistic Environments" title="Direct link to Creating Realistic Environments" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="environment-design-principles">Environment Design Principles<a href="#environment-design-principles" class="hash-link" aria-label="Direct link to Environment Design Principles" title="Direct link to Environment Design Principles" translate="no">​</a></h3>
+<p>When creating Unity environments for robotics simulation:</p>
+<ul>
+<li class="">Use physically-based rendering (PBR) materials</li>
+<li class="">Implement realistic lighting conditions</li>
+<li class="">Include diverse textures and surfaces</li>
+<li class="">Add environmental details that affect sensor simulation</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="procedural-environment-generation">Procedural Environment Generation<a href="#procedural-environment-generation" class="hash-link" aria-label="Direct link to Procedural Environment Generation" title="Direct link to Procedural Environment Generation" translate="no">​</a></h3>
+<p>Unity allows for procedural environment generation:</p>
+<ul>
+<li class="">Use terrain tools for outdoor environments</li>
+<li class="">Implement modular building systems for indoor spaces</li>
+<li class="">Create randomization tools for varied testing scenarios</li>
+<li class="">Add dynamic elements (moving objects, changing lighting)</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="sensor-simulation-in-unity">Sensor Simulation in Unity<a href="#sensor-simulation-in-unity" class="hash-link" aria-label="Direct link to Sensor Simulation in Unity" title="Direct link to Sensor Simulation in Unity" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="camera-simulation">Camera Simulation<a href="#camera-simulation" class="hash-link" aria-label="Direct link to Camera Simulation" title="Direct link to Camera Simulation" translate="no">​</a></h3>
+<p>Unity can simulate various camera types:</p>
+<ul>
+<li class="">RGB cameras with realistic lens effects</li>
+<li class="">Depth cameras using Unity&#x27;s depth buffer</li>
+<li class="">Stereo cameras for 3D vision</li>
+<li class="">Thermal cameras with custom shaders</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="lidar-simulation">LiDAR Simulation<a href="#lidar-simulation" class="hash-link" aria-label="Direct link to LiDAR Simulation" title="Direct link to LiDAR Simulation" translate="no">​</a></h3>
+<p>Unity can simulate LiDAR sensors using raycasting:</p>
+<ul>
+<li class="">Implement 3D LiDAR with multiple beams</li>
+<li class="">Simulate noise and accuracy characteristics</li>
+<li class="">Generate point cloud data compatible with ROS 2</li>
+<li class="">Include occlusion and reflection modeling</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="imu-and-other-sensors">IMU and Other Sensors<a href="#imu-and-other-sensors" class="hash-link" aria-label="Direct link to IMU and Other Sensors" title="Direct link to IMU and Other Sensors" translate="no">​</a></h3>
+<p>Unity can simulate additional sensors:</p>
+<ul>
+<li class="">Accelerometer and gyroscope data</li>
+<li class="">GPS with realistic accuracy models</li>
+<li class="">Force/torque sensors</li>
+<li class="">Touch and proximity sensors</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="unity-for-robot-visualization">Unity for Robot Visualization<a href="#unity-for-robot-visualization" class="hash-link" aria-label="Direct link to Unity for Robot Visualization" title="Direct link to Unity for Robot Visualization" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="robot-model-import">Robot Model Import<a href="#robot-model-import" class="hash-link" aria-label="Direct link to Robot Model Import" title="Direct link to Robot Model Import" translate="no">​</a></h3>
+<p>Import your URDF robot model into Unity:</p>
+<ul>
+<li class="">Convert URDF to Unity-compatible format</li>
+<li class="">Preserve joint hierarchies and kinematics</li>
+<li class="">Implement forward and inverse kinematics</li>
+<li class="">Add collision detection for Unity simulation</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="real-time-visualization">Real-time Visualization<a href="#real-time-visualization" class="hash-link" aria-label="Direct link to Real-time Visualization" title="Direct link to Real-time Visualization" translate="no">​</a></h3>
+<p>Use Unity for real-time robot visualization:</p>
+<ul>
+<li class="">Stream joint states from ROS 2 to Unity</li>
+<li class="">Update robot pose in real-time</li>
+<li class="">Visualize sensor data overlays</li>
+<li class="">Display robot status and debugging information</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="advanced-features">Advanced Features<a href="#advanced-features" class="hash-link" aria-label="Direct link to Advanced Features" title="Direct link to Advanced Features" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="synthetic-data-generation">Synthetic Data Generation<a href="#synthetic-data-generation" class="hash-link" aria-label="Direct link to Synthetic Data Generation" title="Direct link to Synthetic Data Generation" translate="no">​</a></h3>
+<p>Unity excels at generating synthetic training data:</p>
+<ul>
+<li class="">Domain randomization for robust AI training</li>
+<li class="">Photorealistic image generation</li>
+<li class="">Automatic annotation of training data</li>
+<li class="">Variations in lighting, textures, and objects</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="vrar-integration">VR/AR Integration<a href="#vrar-integration" class="hash-link" aria-label="Direct link to VR/AR Integration" title="Direct link to VR/AR Integration" translate="no">​</a></h3>
+<p>Unity enables VR/AR interfaces for robotics:</p>
+<ul>
+<li class="">Immersive teleoperation interfaces</li>
+<li class="">AR overlays for robot debugging</li>
+<li class="">Multi-user collaborative environments</li>
+<li class="">Training and simulation in virtual reality</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="unity-vs-gazebo-comparison">Unity vs Gazebo Comparison<a href="#unity-vs-gazebo-comparison" class="hash-link" aria-label="Direct link to Unity vs Gazebo Comparison" title="Direct link to Unity vs Gazebo Comparison" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="when-to-use-unity">When to Use Unity<a href="#when-to-use-unity" class="hash-link" aria-label="Direct link to When to Use Unity" title="Direct link to When to Use Unity" translate="no">​</a></h3>
+<p>Unity is ideal for:</p>
+<ul>
+<li class="">High-quality visual rendering</li>
+<li class="">Synthetic data generation</li>
+<li class="">VR/AR applications</li>
+<li class="">Advanced sensor simulation</li>
+<li class="">Photorealistic visualization</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="when-to-use-gazebo">When to Use Gazebo<a href="#when-to-use-gazebo" class="hash-link" aria-label="Direct link to When to Use Gazebo" title="Direct link to When to Use Gazebo" translate="no">​</a></h3>
+<p>Gazebo is better for:</p>
+<ul>
+<li class="">Physics-based simulation</li>
+<li class="">Realistic robot dynamics</li>
+<li class="">Standard sensor simulation</li>
+<li class="">Integration with ROS control</li>
+<li class="">Performance-critical applications</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="best-practices">Best Practices<a href="#best-practices" class="hash-link" aria-label="Direct link to Best Practices" title="Direct link to Best Practices" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="performance-optimization">Performance Optimization<a href="#performance-optimization" class="hash-link" aria-label="Direct link to Performance Optimization" title="Direct link to Performance Optimization" translate="no">​</a></h3>
+<ul>
+<li class="">Use Level of Detail (LOD) systems for complex scenes</li>
+<li class="">Implement occlusion culling for large environments</li>
+<li class="">Optimize materials and shaders for real-time performance</li>
+<li class="">Use object pooling for frequently instantiated objects</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="integration-patterns">Integration Patterns<a href="#integration-patterns" class="hash-link" aria-label="Direct link to Integration Patterns" title="Direct link to Integration Patterns" translate="no">​</a></h3>
+<ul>
+<li class="">Keep Unity and ROS 2 loosely coupled</li>
+<li class="">Use message queues for reliable communication</li>
+<li class="">Implement proper error handling for network issues</li>
+<li class="">Design for both online and offline operation</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="data-pipeline-management">Data Pipeline Management<a href="#data-pipeline-management" class="hash-link" aria-label="Direct link to Data Pipeline Management" title="Direct link to Data Pipeline Management" translate="no">​</a></h3>
+<ul>
+<li class="">Standardize message formats between Unity and ROS 2</li>
+<li class="">Implement data validation and sanitization</li>
+<li class="">Use compression for high-bandwidth data streams</li>
+<li class="">Maintain data synchronization across systems</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="debugging-unity-ros-integration">Debugging Unity-ROS Integration<a href="#debugging-unity-ros-integration" class="hash-link" aria-label="Direct link to Debugging Unity-ROS Integration" title="Direct link to Debugging Unity-ROS Integration" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="common-issues">Common Issues<a href="#common-issues" class="hash-link" aria-label="Direct link to Common Issues" title="Direct link to Common Issues" translate="no">​</a></h3>
+<ul>
+<li class="">Network connectivity problems</li>
+<li class="">Message serialization errors</li>
+<li class="">Performance bottlenecks</li>
+<li class="">Synchronization issues</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="debugging-tools">Debugging Tools<a href="#debugging-tools" class="hash-link" aria-label="Direct link to Debugging Tools" title="Direct link to Debugging Tools" translate="no">​</a></h3>
+<ul>
+<li class="">Unity&#x27;s built-in profiler</li>
+<li class="">ROS 2 command-line tools</li>
+<li class="">Network monitoring utilities</li>
+<li class="">Custom debugging interfaces</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="practical-implementation">Practical Implementation<a href="#practical-implementation" class="hash-link" aria-label="Direct link to Practical Implementation" title="Direct link to Practical Implementation" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="unity-scene-setup">Unity Scene Setup<a href="#unity-scene-setup" class="hash-link" aria-label="Direct link to Unity Scene Setup" title="Direct link to Unity Scene Setup" translate="no">​</a></h3>
+<ol>
+<li class="">Create a new Unity scene</li>
+<li class="">Add ROSConnection object</li>
+<li class="">Import robot model</li>
+<li class="">Configure sensor components</li>
+<li class="">Set up lighting and environment</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ros-2-node-configuration">ROS 2 Node Configuration<a href="#ros-2-node-configuration" class="hash-link" aria-label="Direct link to ROS 2 Node Configuration" title="Direct link to ROS 2 Node Configuration" translate="no">​</a></h3>
+<ol>
+<li class="">Launch ROS-TCP-Endpoint</li>
+<li class="">Configure topic mappings</li>
+<li class="">Set up message serialization</li>
+<li class="">Test communication with Unity</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
+<p>This week, you&#x27;ve learned to integrate Unity with your ROS 2 system for advanced rendering and visualization. You now have the tools to create photorealistic simulation environments and implement high-quality sensor simulation.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="next-steps">Next Steps<a href="#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps" translate="no">​</a></h2>
+<p>Next, you&#x27;ll explore sensor simulation in detail, learning to implement realistic LiDAR, depth cameras, and IMU sensors in both Gazebo and Unity environments.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-2-simulation/week-7-unity-integration.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Week 6: Gazebo Environment Setup</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/Humanoid-robotics-book/docs/module-2-simulation/sensor-simulation"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Sensor Simulation in Robotics</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#learning-objectives" class="table-of-contents__link toc-highlight">Learning Objectives</a></li><li><a href="#unity-ros-integration-overview" class="table-of-contents__link toc-highlight">Unity-ROS Integration Overview</a></li><li><a href="#setting-up-unity-with-ros-2" class="table-of-contents__link toc-highlight">Setting Up Unity with ROS 2</a><ul><li><a href="#installing-unity" class="table-of-contents__link toc-highlight">Installing Unity</a></li><li><a href="#ros-2-integration-packages" class="table-of-contents__link toc-highlight">ROS 2 Integration Packages</a></li><li><a href="#basic-connection-setup" class="table-of-contents__link toc-highlight">Basic Connection Setup</a></li></ul></li><li><a href="#creating-realistic-environments" class="table-of-contents__link toc-highlight">Creating Realistic Environments</a><ul><li><a href="#environment-design-principles" class="table-of-contents__link toc-highlight">Environment Design Principles</a></li><li><a href="#procedural-environment-generation" class="table-of-contents__link toc-highlight">Procedural Environment Generation</a></li></ul></li><li><a href="#sensor-simulation-in-unity" class="table-of-contents__link toc-highlight">Sensor Simulation in Unity</a><ul><li><a href="#camera-simulation" class="table-of-contents__link toc-highlight">Camera Simulation</a></li><li><a href="#lidar-simulation" class="table-of-contents__link toc-highlight">LiDAR Simulation</a></li><li><a href="#imu-and-other-sensors" class="table-of-contents__link toc-highlight">IMU and Other Sensors</a></li></ul></li><li><a href="#unity-for-robot-visualization" class="table-of-contents__link toc-highlight">Unity for Robot Visualization</a><ul><li><a href="#robot-model-import" class="table-of-contents__link toc-highlight">Robot Model Import</a></li><li><a href="#real-time-visualization" class="table-of-contents__link toc-highlight">Real-time Visualization</a></li></ul></li><li><a href="#advanced-features" class="table-of-contents__link toc-highlight">Advanced Features</a><ul><li><a href="#synthetic-data-generation" class="table-of-contents__link toc-highlight">Synthetic Data Generation</a></li><li><a href="#vrar-integration" class="table-of-contents__link toc-highlight">VR/AR Integration</a></li></ul></li><li><a href="#unity-vs-gazebo-comparison" class="table-of-contents__link toc-highlight">Unity vs Gazebo Comparison</a><ul><li><a href="#when-to-use-unity" class="table-of-contents__link toc-highlight">When to Use Unity</a></li><li><a href="#when-to-use-gazebo" class="table-of-contents__link toc-highlight">When to Use Gazebo</a></li></ul></li><li><a href="#best-practices" class="table-of-contents__link toc-highlight">Best Practices</a><ul><li><a href="#performance-optimization" class="table-of-contents__link toc-highlight">Performance Optimization</a></li><li><a href="#integration-patterns" class="table-of-contents__link toc-highlight">Integration Patterns</a></li><li><a href="#data-pipeline-management" class="table-of-contents__link toc-highlight">Data Pipeline Management</a></li></ul></li><li><a href="#debugging-unity-ros-integration" class="table-of-contents__link toc-highlight">Debugging Unity-ROS Integration</a><ul><li><a href="#common-issues" class="table-of-contents__link toc-highlight">Common Issues</a></li><li><a href="#debugging-tools" class="table-of-contents__link toc-highlight">Debugging Tools</a></li></ul></li><li><a href="#practical-implementation" class="table-of-contents__link toc-highlight">Practical Implementation</a><ul><li><a href="#unity-scene-setup" class="table-of-contents__link toc-highlight">Unity Scene Setup</a></li><li><a href="#ros-2-node-configuration" class="table-of-contents__link toc-highlight">ROS 2 Node Configuration</a></li></ul></li><li><a href="#summary" class="table-of-contents__link toc-highlight">Summary</a></li><li><a href="#next-steps" class="table-of-contents__link toc-highlight">Next Steps</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Course Modules</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/Humanoid-robotics-book/docs/intro">Introduction</a></li><li class="footer__item"><a class="footer__link-item" href="/Humanoid-robotics-book/docs/foundations/overview">Foundations</a></li><li class="footer__item"><a class="footer__link-item" href="/Humanoid-robotics-book/docs/module-1-ros2/overview">Module 1: ROS 2</a></li><li class="footer__item"><a class="footer__link-item" href="/Humanoid-robotics-book/docs/module-2-simulation/overview">Module 2: Simulation</a></li><li class="footer__item"><a class="footer__link-item" href="/Humanoid-robotics-book/docs/module-3-isaac/overview">Module 3: Isaac AI</a></li><li class="footer__item"><a class="footer__link-item" href="/Humanoid-robotics-book/docs/module-4-vla/introduction">Module 4: VLA</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Resources</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/Humanoid-robotics-book/docs/hardware-guide/workstation-specs">Hardware Guide</a></li><li class="footer__item"><a class="footer__link-item" href="/Humanoid-robotics-book/docs/appendix/installation-guides">Installation Guides</a></li><li class="footer__item"><a class="footer__link-item" href="/Humanoid-robotics-book/docs/appendix/troubleshooting">Troubleshooting</a></li><li class="footer__item"><a class="footer__link-item" href="/Humanoid-robotics-book/docs/appendix/glossary">Glossary</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">External Links</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://docs.ros.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">ROS 2 Documentation<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://docs.omniverse.nvidia.com/isaacsim" target="_blank" rel="noopener noreferrer" class="footer__link-item">NVIDIA Isaac Sim<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/irza16/Humanoid-robotics-book" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Repository<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/panaversity/spec-kit-plus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Panaversity Spec-Kit<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Physical AI & Humanoid Robotics Course. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

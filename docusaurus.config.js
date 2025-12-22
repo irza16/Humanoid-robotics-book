@@ -1,5 +1,6 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
+const isVercel = process.env.VERCEL === '1';
 
 const {themes} = require('prism-react-renderer');
 const lightCodeTheme = themes.github;
@@ -11,11 +12,12 @@ const config = {
   tagline: 'From Digital AI to Embodied Intelligence',
   favicon: '/img/favicon.svg',
 
-  // Set the production url of your site here
-  url: 'https://irza16.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/Humanoid-robotics-book/',
+url: isVercel
+  ? 'https://humanoid-robotics-book-i0uddyw-irzas-projects-515d0e8.vercel.app'
+  : 'https://irza16.github.io',
+
+baseUrl: isVercel ? '/' : '/Humanoid-robotics-book/',
+
 
   // GitHub pages deployment config.
   organizationName: 'irza16', // Your GitHub username
@@ -50,7 +52,7 @@ const config = {
           sidebarPath: './sidebars.js',
           // Edit this page links
           editUrl:
-            'https://github.com/irza16/Humanoid-robotics-book/tree/main/',
+            'https://github.com/irza16/Humanoid-robotics-book/tree/main/'
         },
         blog: false, // Disabled blog for course-focused site
         theme: {

@@ -1,0 +1,583 @@
+// RAG Chatbot Widget - Vanilla JavaScript Implementation
+// Floating chat widget for the Physical AI & Humanoid Robotics book
+
+(function() {
+    'use strict';
+
+    // Configuration
+    const CONFIG = {
+        backendUrl: 'https://superb-joy.up.railway.app',  // Hardcoded Railway URL
+        maxMessageLength: 2000,
+        maxSelectedTextLength: 5000,
+        maxRetries: 3,  // Increased retries for Railway cold starts
+        requestTimeout: 45000,  // Increased timeout for Railway cold starts (45 seconds)
+        healthCheckInterval: 30000  // 30 seconds between health checks
+    };
+
+    console.log('Chatbot widget loaded with config:', CONFIG);
+    console.log('Current location hostname:', window.location.hostname);
+    console.log('Backend URL configured as:', CONFIG.backendUrl);
+
+    // Helper function to make requests with timeout and retry logic
+    async function makeRequestWithRetry(url, options = {}) {
+        console.log('makeRequestWithRetry called with:', { url, options });
+        // Additional URL validation and debugging
+        console.log('Full URL being requested:', url);
+        try {
+            console.log('URL parsed:', new URL(url));
+        } catch (urlError) {
+            console.error('Invalid URL format:', url, urlError);
+        }
+        let lastError = null;
+
+        for (let attempt = 0; attempt <= CONFIG.maxRetries; attempt++) {
+            console.log(`Request attempt ${attempt + 1}/${CONFIG.maxRetries + 1}`, { url, options });
+
+            try {
+                // Create a promise that rejects after timeout
+                const timeoutPromise = new Promise((_, reject) => {
+                    setTimeout(() => reject(new Error('Request timeout')), CONFIG.requestTimeout);
+                });
+
+                // Make the actual fetch request
+                const fetchPromise = fetch(url, {
+                    ...options,
+                    // Remove explicit mode: 'cors' as it's default for cross-origin
+                    // mode: 'cors',  // Commenting out to let browser handle automatically
+                    credentials: 'omit',  // Don't send cookies unless needed
+                    // Add explicit headers that might help with Railway
+                    headers: {
+                        ...options.headers,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                console.log('Making fetch request to:', url);
+                console.log('Request options:', options);
+
+                // Race the fetch against the timeout
+                const response = await Promise.race([fetchPromise, timeoutPromise]);
+
+                console.log('Received response:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    ok: response.ok,
+                    url: response.url
+                });
+
+                // If we get a response, check if it's ok
+                if (response.ok) {
+                    console.log('Request successful, returning response');
+                    return response;
+                }
+
+                // If response is not ok, throw an error
+                const errorText = await response.text().catch(() => 'Unknown server error');
+                const error = new Error(`Server error: ${response.status} - ${errorText || response.statusText}`);
+                console.error('Server error response:', error);
+                throw error;
+            } catch (error) {
+                console.error(`Request attempt ${attempt + 1} failed:`, error);
+                lastError = error;
+
+                // If this was a timeout or network error, and we have retries left, wait before retrying
+                if (attempt < CONFIG.maxRetries) {
+                    // Wait before retrying (exponential backoff: 1s, 2s, 4s...)
+                    const waitTime = Math.pow(2, attempt) * 1000;
+                    console.log(`Request failed (attempt ${attempt + 1}), retrying in ${waitTime}ms...`);
+                    await new Promise(resolve => setTimeout(resolve, waitTime));
+                    continue;
+                }
+
+                // If we've exhausted retries, throw the last error
+                console.error('All retry attempts failed, throwing error:', error);
+                throw error;
+            }
+        }
+
+        // This should never be reached, but just in case
+        console.error('Unexpected end of retry loop, throwing last error:', lastError);
+        throw lastError;
+    }
+
+    // State management
+    let state = {
+        isOpen: false,
+        messages: [],
+        selectedText: null,
+        selectedTextCache: null  // Persistent cache for selected text
+    };
+
+    // DOM elements
+    let elements = {};
+
+    // Initialize the widget
+    function init() {
+        createWidget();
+        setupEventListeners();
+        loadExistingSelection();
+    }
+
+    // Create the chat widget HTML structure
+    function createWidget() {
+        // Create the floating button
+        const floatingButton = document.createElement('div');
+        floatingButton.id = 'chatbot-float-button';
+        floatingButton.innerHTML = '💬';
+        floatingButton.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #4f46e5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            transition: all 0.3s ease;
+        `;
+
+        // Create the chat modal
+        const chatModal = document.createElement('div');
+        chatModal.id = 'chatbot-modal';
+        chatModal.style.cssText = `
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 400px;
+            height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 10000;
+            overflow: hidden;
+        `;
+
+        chatModal.innerHTML = `
+            <div id="chatbot-header" style="
+                background: #4f46e5;
+                color: white;
+                padding: 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            ">
+                <h3 style="margin: 0; font-size: 16px;">Book Tutor</h3>
+                <button id="chatbot-close" style="
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 20px;
+                    cursor: pointer;
+                    padding: 0;
+                    width: 24px;
+                    height: 24px;
+                ">&times;</button>
+            </div>
+            <div id="chatbot-messages" style="
+                flex: 1;
+                padding: 16px;
+                overflow-y: auto;
+                background: #f9fafb;
+            "></div>
+            <div id="chatbot-input-area" style="
+                padding: 16px;
+                border-top: 1px solid #e5e7eb;
+                background: white;
+            ">
+                <div id="selected-text-indicator" style="
+                    margin-bottom: 8px;
+                    padding: 8px;
+                    background: #dbeafe;
+                    border-radius: 6px;
+                    font-size: 12px;
+                    display: none;
+                ">
+                    <strong>Selected text:</strong> <span id="selected-text-content"></span>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="chatbot-input" placeholder="Ask about the book content..." style="
+                        flex: 1;
+                        padding: 12px;
+                        border: 1px solid #d1d5db;
+                        border-radius: 8px;
+                        font-size: 14px;
+                    " />
+                    <button id="chatbot-send" style="
+                        background: #4f46e5;
+                        color: white;
+                        border: none;
+                        border-radius: 8px;
+                        padding: 12px 16px;
+                        cursor: pointer;
+                    ">Send</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(floatingButton);
+        document.body.appendChild(chatModal);
+
+        // Store references to elements
+        elements = {
+            floatingButton: document.getElementById('chatbot-float-button'),
+            modal: document.getElementById('chatbot-modal'),
+            closeBtn: document.getElementById('chatbot-close'),
+            messages: document.getElementById('chatbot-messages'),
+            input: document.getElementById('chatbot-input'),
+            sendBtn: document.getElementById('chatbot-send'),
+            selectedTextIndicator: document.getElementById('selected-text-indicator'),
+            selectedTextContent: document.getElementById('selected-text-content')
+        };
+    }
+
+    // Set up event listeners
+    function setupEventListeners() {
+        // Toggle chat modal
+        elements.floatingButton.addEventListener('click', function() {
+            // Capture current text selection when chat button is clicked
+            handleTextSelection();
+            toggleChat();
+        });
+        elements.closeBtn.addEventListener('click', toggleChat);
+
+        // Send message on button click
+        elements.sendBtn.addEventListener('click', sendMessage);
+
+        // Send message on Enter key (but allow Shift+Enter for new lines)
+        elements.input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Detect text selection
+        document.addEventListener('mouseup', handleTextSelection);
+        document.addEventListener('selectionchange', handleTextSelection);
+    }
+
+    // Toggle chat visibility
+    function toggleChat() {
+        state.isOpen = !state.isOpen;
+        elements.modal.style.display = state.isOpen ? 'flex' : 'none';
+
+        if (state.isOpen) {
+            elements.input.focus();
+        }
+    }
+
+    // Handle text selection
+    function handleTextSelection() {
+        const selection = window.getSelection();
+        const selectedText = selection.toString().trim();
+
+        if (selectedText && selectedText.length <= CONFIG.maxSelectedTextLength) {
+            state.selectedText = selectedText;
+            state.selectedTextCache = selectedText;  // Store in persistent cache
+            showSelectedTextIndicator(selectedText);
+        } else if (!selectedText && state.selectedTextCache) {
+            // Don't clear selectedText if we have cached text (user might be typing)
+            // Only clear when explicitly sending a message
+            state.selectedText = null;
+        }
+    }
+
+    // Show selected text indicator
+    function showSelectedTextIndicator(text) {
+        elements.selectedTextContent.textContent = text.length > 100 ? text.substring(0, 100) + '...' : text;
+        elements.selectedTextIndicator.style.display = 'block';
+    }
+
+    // Hide selected text indicator
+    function hideSelectedTextIndicator() {
+        elements.selectedTextIndicator.style.display = 'none';
+    }
+
+    // Load existing selection when page loads
+    function loadExistingSelection() {
+        const selection = window.getSelection();
+        const selectedText = selection.toString().trim();
+
+        if (selectedText && selectedText.length <= CONFIG.maxSelectedTextLength) {
+            state.selectedText = selectedText;
+            state.selectedTextCache = selectedText;  // Store in persistent cache
+            showSelectedTextIndicator(selectedText);
+        }
+    }
+
+    // Send message to backend
+    async function sendMessage() {
+        console.log('sendMessage called with input value:', elements.input.value);
+        const message = elements.input.value.trim();
+
+        if (!message) {
+            console.log('Message is empty, returning early');
+            return;
+        }
+        if (message.length > CONFIG.maxMessageLength) {
+            console.log('Message too long:', message.length, 'characters');
+            addMessage('Your message is too long. Please keep it under 2000 characters.', 'error');
+            return;
+        }
+
+        // Add user message to UI
+        console.log('Adding user message to UI:', message);
+        addMessage(message, 'user');
+        elements.input.value = '';
+
+        // Show loading state with typing indicator
+        console.log('Showing loading message');
+        const loadingMsg = addMessage('🤖 Typing...', 'bot', true);
+
+        try {
+            // Use cached selected text if available, otherwise use current state
+            const selectedTextToUse = state.selectedTextCache || state.selectedText || null;
+            console.log('Selected text for request:', selectedTextToUse);
+
+            // Prepare the request payload
+            const payload = {
+                question: message,
+                selected_text: selectedTextToUse
+            };
+            console.log('Sending payload:', payload);
+
+            // Send request to backend with retry logic and timeout
+            const chatUrl = `${CONFIG.backendUrl}/chat`;
+            console.log('Making request to:', chatUrl);
+            console.log('Chat URL object:', new URL(chatUrl));
+            const response = await makeRequestWithRetry(chatUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            console.log('Response received, parsing JSON...');
+            const data = await response.json();
+            console.log('Parsed response data:', data);
+
+            // Remove loading message
+            console.log('Removing loading message');
+            removeMessage(loadingMsg);
+
+            // Add bot response to UI
+            console.log('Adding bot response to UI:', data.answer);
+            addMessage(data.answer, 'bot');
+
+            // Add "based on selected text" badge if the response used selected text
+            if (state.selectedTextCache || state.selectedText) {
+                console.log('Adding context badge for selected text');
+                addContextBadge('Based on selected text');
+            }
+
+            // Handle sources if available
+            if (data.sources && data.sources.length > 0) {
+                console.log('Adding sources to UI:', data.sources);
+                addSources(data.sources);
+            }
+
+            // Clear the selected text cache after successfully sending the message
+            console.log('Clearing selected text cache');
+            state.selectedTextCache = null;
+            hideSelectedTextIndicator();
+        } catch (error) {
+            console.error('Error in sendMessage:', error);
+            // Remove loading message
+            removeMessage(loadingMsg);
+
+            // Show improved error message based on error type
+            let errorMessage = 'Sorry, I encountered an error processing your request. Please try again.';
+
+            if (error.name === 'AbortError' || error.message.includes('timeout')) {
+                errorMessage = 'Request timed out. The backend may be experiencing cold starts. Please try again in a moment.';
+            } else if (error.message.includes('Failed to fetch')) {
+                errorMessage = 'Unable to connect to the backend service. This may be due to network issues or the backend being temporarily unavailable.';
+            } else if (error.message.includes('NetworkError')) {
+                errorMessage = 'Network error occurred. Please check your connection and try again.';
+            } else if (error.message.includes('502') || error.message.includes('503') || error.message.includes('504')) {
+                errorMessage = 'Backend service is temporarily unavailable. This is likely due to cold start delays on Railway. The service should become available shortly. Please try again.';
+            } else if (error.message.includes('404')) {
+                errorMessage = 'Backend service endpoint not found. The API may be misconfigured or not deployed.';
+            } else if (error.message.includes('429')) {
+                errorMessage = 'Rate limit exceeded. Please wait before sending another message.';
+            } else if (error.message.includes('Request timeout')) {
+                errorMessage = 'Request timed out after 30 seconds. The backend may be experiencing cold starts. Please try again.';
+            } else {
+                // Generic error with more specific information
+                errorMessage = `Error: ${error.message}. Backend may be temporarily unavailable due to cold start or other issues. Please try again.`;
+            }
+
+            console.log('Adding error message to UI:', errorMessage);
+            addMessage(errorMessage, 'error');
+            console.error('Chat error details:', {
+                message: error.message,
+                stack: error.stack,
+                name: error.name
+            });
+        }
+    }
+
+    // Add message to chat UI
+    function addMessage(text, sender, isTemporary = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chatbot-message chatbot-message-${sender}`;
+        messageDiv.style.cssText = `
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            max-width: 85%;
+            word-wrap: break-word;
+        `;
+
+        if (sender === 'user') {
+            messageDiv.style.cssText += `
+                background: #4f46e5;
+                color: white;
+                margin-left: auto;
+                text-align: right;
+            `;
+        } else if (sender === 'bot') {
+            messageDiv.style.cssText += `
+                background: #f3f4f6;
+                color: #374151;
+                margin-right: auto;
+                text-align: left;
+            `;
+        } else if (sender === 'error') {
+            messageDiv.style.cssText += `
+                background: #fee2e2;
+                color: #dc2626;
+                margin-right: auto;
+                text-align: left;
+            `;
+        }
+
+        messageDiv.innerHTML = text;
+
+        elements.messages.appendChild(messageDiv);
+        elements.messages.scrollTop = elements.messages.scrollHeight;
+
+        if (isTemporary) {
+            return messageDiv;
+        }
+    }
+
+    // Remove a message from UI
+    function removeMessage(messageElement) {
+        if (messageElement && messageElement.parentNode) {
+            messageElement.parentNode.removeChild(messageElement);
+        }
+    }
+
+    // Add sources to chat UI
+    function addSources(sources) {
+        if (!sources || sources.length === 0) return;
+
+        const sourcesDiv = document.createElement('div');
+        sourcesDiv.className = 'chatbot-sources';
+        sourcesDiv.style.cssText = `
+            margin-top: 8px;
+            padding: 8px;
+            background: #f0f9ff;
+            border-radius: 6px;
+            border-left: 3px solid #3b82f6;
+            font-size: 12px;
+        `;
+
+        // Build source list with clickable links
+        let sourcesList = '<strong>Sources:</strong><ul style="margin: 4px 0; padding-left: 16px;">';
+        sources.forEach(source => {
+            if (source.url) {
+                sourcesList += `<li><a href="${source.url}" target="_blank" style="color: #3b82f6; text-decoration: underline;">${source.title || 'Source'}</a></li>`;
+            } else if (source.title) {
+                sourcesList += `<li>${source.title}</li>`;
+            } else {
+                sourcesList += `<li>Reference material</li>`;
+            }
+        });
+        sourcesList += '</ul>';
+
+        sourcesDiv.innerHTML = sourcesList;
+
+        elements.messages.appendChild(sourcesDiv);
+        elements.messages.scrollTop = elements.messages.scrollHeight;
+    }
+
+    // Add context badge to chat UI
+    function addContextBadge(text) {
+        const badgeDiv = document.createElement('div');
+        badgeDiv.className = 'chatbot-context-badge';
+        badgeDiv.style.cssText = `
+            margin-top: 8px;
+            padding: 4px 8px;
+            background: #d1fae5;
+            color: #065f46;
+            border-radius: 12px;
+            font-size: 11px;
+            display: inline-block;
+            margin-bottom: 8px;
+        `;
+
+        badgeDiv.textContent = text;
+
+        elements.messages.appendChild(badgeDiv);
+        elements.messages.scrollTop = elements.messages.scrollHeight;
+    }
+
+    // Health check function to test backend connectivity
+    async function performHealthCheck() {
+        console.log('Performing health check...');
+        const healthUrl = `${CONFIG.backendUrl}/health`;
+        console.log('Health check URL:', healthUrl);
+        try {
+            const response = await fetch(healthUrl);
+            const data = await response.json();
+            console.log('Health check response:', data);
+
+            if (response.ok) {
+                console.log('✓ Backend is healthy');
+                // Optionally, you could display a status indicator somewhere
+                return true;
+            } else {
+                console.error('✗ Backend health check failed:', response.status, data);
+                return false;
+            }
+        } catch (error) {
+            console.error('✗ Health check failed with error:', error);
+            console.error('Health check URL that failed:', healthUrl);
+            return false;
+        }
+    }
+
+    // Initialize the widget when DOM is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+    // Perform initial health check after widget is initialized
+    setTimeout(async () => {
+        console.log('Performing initial health check after widget initialization...');
+        await performHealthCheck();
+
+        // Set up periodic health checks
+        setInterval(async () => {
+            console.log('Performing periodic health check...');
+            await performHealthCheck();
+        }, CONFIG.healthCheckInterval);
+    }, 2000); // Wait 2 seconds after initialization to perform first check
+
+})();
