@@ -1,0 +1,33 @@
+{
+  "id": "appendix/resources",
+  "title": "Additional Resources",
+  "description": "External links and further reading for continued learning.",
+  "source": "@site/docs/appendix/resources.md",
+  "sourceDirName": "appendix",
+  "slug": "/appendix/resources",
+  "permalink": "/Humanoid-robotics-book/docs/appendix/resources",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/appendix/resources.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Additional Resources",
+    "description": "External links and further reading for continued learning.",
+    "keywords": [
+      "resources",
+      "links",
+      "further reading",
+      "robotics",
+      "ai",
+      "communities"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Glossary",
+    "permalink": "/Humanoid-robotics-book/docs/appendix/glossary"
+  }
+}

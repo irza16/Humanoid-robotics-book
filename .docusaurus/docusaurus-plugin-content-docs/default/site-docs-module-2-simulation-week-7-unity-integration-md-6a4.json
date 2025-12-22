@@ -1,0 +1,24 @@
+{
+  "id": "module-2-simulation/week-7-unity-integration",
+  "title": "Week 7: Unity Integration for Advanced Rendering",
+  "description": "Overview",
+  "source": "@site/docs/module-2-simulation/week-7-unity-integration.md",
+  "sourceDirName": "module-2-simulation",
+  "slug": "/module-2-simulation/week-7-unity-integration",
+  "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/week-7-unity-integration",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-2-simulation/week-7-unity-integration.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 6: Gazebo Environment Setup",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup"
+  },
+  "next": {
+    "title": "Sensor Simulation in Robotics",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/sensor-simulation"
+  }
+}

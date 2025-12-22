@@ -1,0 +1,42 @@
+{
+  "id": "module-4-vla/week13-capstone",
+  "title": "Week 13: Capstone Integration",
+  "description": "Integrate Voice, Vision (from Module 3), and Action (ROS 2). Learn to handle failures, replan, optimize latency, and prepare for the final project demonstration.",
+  "source": "@site/docs/module-4-vla/week13-capstone.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/week13-capstone",
+  "permalink": "/Humanoid-robotics-book/docs/module-4-vla/week13-capstone",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-4-vla/week13-capstone.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Week 13: Capstone Integration",
+    "description": "Integrate Voice, Vision (from Module 3), and Action (ROS 2). Learn to handle failures, replan, optimize latency, and prepare for the final project demonstration.",
+    "keywords": [
+      "week13",
+      "capstone",
+      "integration",
+      "vla",
+      "ros2",
+      "vision",
+      "action",
+      "failure handling",
+      "replanning",
+      "latency",
+      "demo"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 12: The Cognitive Brain (LLMs)",
+    "permalink": "/Humanoid-robotics-book/docs/module-4-vla/week12-cognitive-brain"
+  },
+  "next": {
+    "title": "Module 4: Assignments",
+    "permalink": "/Humanoid-robotics-book/docs/module-4-vla/assignments"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "hardware-guide/edge-kits",
+  "title": "Edge AI Kits",
+  "description": "Compact and efficient hardware for deploying AI models to the edge, focusing on NVIDIA Jetson platforms.",
+  "source": "@site/docs/hardware-guide/edge-kits.md",
+  "sourceDirName": "hardware-guide",
+  "slug": "/hardware-guide/edge-kits",
+  "permalink": "/Humanoid-robotics-book/docs/hardware-guide/edge-kits",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/hardware-guide/edge-kits.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Edge AI Kits",
+    "description": "Compact and efficient hardware for deploying AI models to the edge, focusing on NVIDIA Jetson platforms.",
+    "keywords": [
+      "hardware",
+      "edge ai",
+      "jetson",
+      "nvidia",
+      "orin",
+      "nano",
+      "nx",
+      "realsense"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Workstation Specifications",
+    "permalink": "/Humanoid-robotics-book/docs/hardware-guide/workstation-specs"
+  },
+  "next": {
+    "title": "Robot Lab Options",
+    "permalink": "/Humanoid-robotics-book/docs/hardware-guide/robot-options"
+  }
+}

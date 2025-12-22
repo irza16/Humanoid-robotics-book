@@ -1,0 +1,24 @@
+{
+  "id": "module-2-simulation/overview",
+  "title": "Module 2: The Digital Twin - Gazebo & Unity",
+  "description": "Overview",
+  "source": "@site/docs/module-2-simulation/overview.md",
+  "sourceDirName": "module-2-simulation",
+  "slug": "/module-2-simulation/overview",
+  "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/overview",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-2-simulation/overview.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 1 Capstone: The Robotic Nervous System",
+    "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/capstone-nervous-system"
+  },
+  "next": {
+    "title": "Week 6: Gazebo Environment Setup",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/week-6-gazebo-setup"
+  }
+}

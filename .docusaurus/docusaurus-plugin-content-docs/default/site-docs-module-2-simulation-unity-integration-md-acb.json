@@ -1,0 +1,26 @@
+{
+  "id": "module-2-simulation/unity-integration",
+  "title": "Unity Integration",
+  "description": "Integrating high-fidelity rendering with Unity for robotics simulation.",
+  "source": "@site/docs/module-2-simulation/unity-integration.md",
+  "sourceDirName": "module-2-simulation",
+  "slug": "/module-2-simulation/unity-integration",
+  "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/unity-integration",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-2-simulation/unity-integration.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Unity Integration",
+    "description": "Integrating high-fidelity rendering with Unity for robotics simulation.",
+    "keywords": [
+      "simulation",
+      "unity",
+      "robotics",
+      "digital twin"
+    ]
+  }
+}

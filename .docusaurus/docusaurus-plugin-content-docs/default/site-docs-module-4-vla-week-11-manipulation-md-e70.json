@@ -1,0 +1,39 @@
+{
+  "id": "module-4-vla/week11-manipulation",
+  "title": "Week 11: Humanoid Manipulation & Kinematics",
+  "description": "Deep dive into bipedal locomotion, inverse kinematics for arm control, grasping strategies, and MoveIt 2 integration.",
+  "source": "@site/docs/module-4-vla/week11-manipulation.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/week11-manipulation",
+  "permalink": "/Humanoid-robotics-book/docs/module-4-vla/week11-manipulation",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-4-vla/week11-manipulation.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Week 11: Humanoid Manipulation & Kinematics",
+    "description": "Deep dive into bipedal locomotion, inverse kinematics for arm control, grasping strategies, and MoveIt 2 integration.",
+    "keywords": [
+      "week11",
+      "manipulation",
+      "kinematics",
+      "bipedal",
+      "locomotion",
+      "ik",
+      "grasping",
+      "moveit2"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 4: Vision-Language-Action (VLA) Overview",
+    "permalink": "/Humanoid-robotics-book/docs/module-4-vla/introduction"
+  },
+  "next": {
+    "title": "Week 12: The Cognitive Brain (LLMs)",
+    "permalink": "/Humanoid-robotics-book/docs/module-4-vla/week12-cognitive-brain"
+  }
+}

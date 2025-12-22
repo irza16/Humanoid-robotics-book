@@ -1,0 +1,38 @@
+{
+  "id": "appendix/installation-guides",
+  "title": "Installation Guides",
+  "description": "Comprehensive installation guides for all required software and hardware components.",
+  "source": "@site/docs/appendix/installation-guides.md",
+  "sourceDirName": "appendix",
+  "slug": "/appendix/installation-guides",
+  "permalink": "/Humanoid-robotics-book/docs/appendix/installation-guides",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/appendix/installation-guides.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Installation Guides",
+    "description": "Comprehensive installation guides for all required software and hardware components.",
+    "keywords": [
+      "installation",
+      "setup",
+      "guides",
+      "ros2",
+      "isaac sim",
+      "ubuntu",
+      "drivers"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Cloud vs. On-Premise Deployment",
+    "permalink": "/Humanoid-robotics-book/docs/hardware-guide/cloud-vs-onpremise"
+  },
+  "next": {
+    "title": "Troubleshooting",
+    "permalink": "/Humanoid-robotics-book/docs/appendix/troubleshooting"
+  }
+}

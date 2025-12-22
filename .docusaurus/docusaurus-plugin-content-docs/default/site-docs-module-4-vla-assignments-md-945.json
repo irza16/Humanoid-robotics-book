@@ -1,0 +1,37 @@
+{
+  "id": "module-4-vla/assignments",
+  "title": "Module 4: Assignments",
+  "description": "Hands-on assignments for Voice Interface, LLM Agent, and Simulated Grasp, culminating in the Final Capstone Project.",
+  "source": "@site/docs/module-4-vla/assignments.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/assignments",
+  "permalink": "/Humanoid-robotics-book/docs/module-4-vla/assignments",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-4-vla/assignments.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5,
+    "title": "Module 4: Assignments",
+    "description": "Hands-on assignments for Voice Interface, LLM Agent, and Simulated Grasp, culminating in the Final Capstone Project.",
+    "keywords": [
+      "module4",
+      "assignments",
+      "voice interface",
+      "llm agent",
+      "simulated grasp",
+      "capstone"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 13: Capstone Integration",
+    "permalink": "/Humanoid-robotics-book/docs/module-4-vla/week13-capstone"
+  },
+  "next": {
+    "title": "Workstation Specifications",
+    "permalink": "/Humanoid-robotics-book/docs/hardware-guide/workstation-specs"
+  }
+}

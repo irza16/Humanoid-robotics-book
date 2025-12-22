@@ -1,0 +1,24 @@
+{
+  "id": "module-3-isaac/assignments",
+  "title": "Module 3 Assignments",
+  "description": "Overview",
+  "source": "@site/docs/module-3-isaac/assignments.md",
+  "sourceDirName": "module-3-isaac",
+  "slug": "/module-3-isaac/assignments",
+  "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/assignments",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-3-isaac/assignments.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 10: Navigation and Mobility",
+    "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/week-10-navigation"
+  },
+  "next": {
+    "title": "Module 3 Capstone: End-to-End Perception Pipeline",
+    "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/capstone-perception-pipeline"
+  }
+}

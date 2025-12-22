@@ -1,0 +1,24 @@
+{
+  "id": "module-1-ros2/capstone-nervous-system",
+  "title": "Module 1 Capstone: The Robotic Nervous System",
+  "description": "Overview",
+  "source": "@site/docs/module-1-ros2/capstone-nervous-system.md",
+  "sourceDirName": "module-1-ros2",
+  "slug": "/module-1-ros2/capstone-nervous-system",
+  "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/capstone-nervous-system",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-1-ros2/capstone-nervous-system.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 1 Assignments",
+    "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/assignments"
+  },
+  "next": {
+    "title": "Module 2: The Digital Twin - Gazebo & Unity",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/overview"
+  }
+}

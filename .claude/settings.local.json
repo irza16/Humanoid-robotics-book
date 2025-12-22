@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Get-Content ''.specify/scripts/powershell/create-new-feature.ps1'' | Measure-Object -Line\")",
+      "Bash(powershell -Command \".specify/scripts/powershell/create-new-feature.ps1 -Json ''{\"\"title\"\": \"\"Integrated RAG Chatbot for Physical AI Book\"\", \"\"version\"\": \"\"1.0\"\", \"\"overview\"\": {\"\"summary\"\": \"\"Build and embed a Retrieval-Augmented Generation (RAG) chatbot within the published Docusaurus book. The chatbot will answer user questions about the book''s content using semantic search and AI generation. It must support both general queries and questions about user-selected text snippets.\"\"}}'' -Number 1 -ShortName ''rag-chatbot'' -Description ''Integrated RAG Chatbot for Physical AI Book''\")",
+      "Bash(powershell -Command \".specify/scripts/powershell/setup-plan.ps1 -Json\")",
+      "Bash(python -m uvicorn main:app --host 0.0.0.0 --port 8000)"
+    ]
+  }
+}

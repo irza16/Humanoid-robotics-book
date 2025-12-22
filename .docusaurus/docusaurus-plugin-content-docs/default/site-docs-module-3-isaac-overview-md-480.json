@@ -1,0 +1,24 @@
+{
+  "id": "module-3-isaac/overview",
+  "title": "Module 3: The AI-Robot Brain - NVIDIA Isaac™",
+  "description": "Overview",
+  "source": "@site/docs/module-3-isaac/overview.md",
+  "sourceDirName": "module-3-isaac",
+  "slug": "/module-3-isaac/overview",
+  "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/overview",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-3-isaac/overview.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 2 Assignments: Simulation Projects and Exercises",
+    "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/assignments"
+  },
+  "next": {
+    "title": "Week 8: The Digital Twin (Isaac Sim & USD)",
+    "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/week-8-isaac-sim"
+  }
+}

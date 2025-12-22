@@ -1,0 +1,26 @@
+{
+  "id": "module-2-simulation/gazebo-setup",
+  "title": "Gazebo Setup",
+  "description": "Setting up and using the Gazebo simulator for robotics.",
+  "source": "@site/docs/module-2-simulation/gazebo-setup.md",
+  "sourceDirName": "module-2-simulation",
+  "slug": "/module-2-simulation/gazebo-setup",
+  "permalink": "/Humanoid-robotics-book/docs/module-2-simulation/gazebo-setup",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-2-simulation/gazebo-setup.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Gazebo Setup",
+    "description": "Setting up and using the Gazebo simulator for robotics.",
+    "keywords": [
+      "simulation",
+      "gazebo",
+      "robotics",
+      "ros2"
+    ]
+  }
+}

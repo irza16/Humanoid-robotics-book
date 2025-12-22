@@ -1,0 +1,38 @@
+{
+  "id": "foundations/future-trajectory",
+  "title": "Future Trajectory of Humanoid Robotics",
+  "description": "Exploring the emerging trends, long-term visions, and potential societal impact of advanced humanoid robots.",
+  "source": "@site/docs/foundations/future-trajectory.md",
+  "sourceDirName": "foundations",
+  "slug": "/foundations/future-trajectory",
+  "permalink": "/Humanoid-robotics-book/docs/foundations/future-trajectory",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/foundations/future-trajectory.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5,
+    "title": "Future Trajectory of Humanoid Robotics",
+    "description": "Exploring the emerging trends, long-term visions, and potential societal impact of advanced humanoid robots.",
+    "keywords": [
+      "humanoid",
+      "future",
+      "trends",
+      "ai",
+      "society",
+      "ethics",
+      "embodied intelligence"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Modern Examples of Humanoid Robots",
+    "permalink": "/Humanoid-robotics-book/docs/foundations/modern-examples"
+  },
+  "next": {
+    "title": "Module 1: The Robotic Nervous System (ROS 2)",
+    "permalink": "/Humanoid-robotics-book/docs/module-1-ros2/overview"
+  }
+}

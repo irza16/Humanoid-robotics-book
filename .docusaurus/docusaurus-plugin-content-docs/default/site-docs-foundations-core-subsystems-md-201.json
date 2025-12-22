@@ -1,0 +1,39 @@
+{
+  "id": "foundations/core-subsystems",
+  "title": "Core Subsystems of a Humanoid Robot",
+  "description": "Understanding the essential components that enable humanoid robots to function and interact with their environment.",
+  "source": "@site/docs/foundations/core-subsystems.md",
+  "sourceDirName": "foundations",
+  "slug": "/foundations/core-subsystems",
+  "permalink": "/Humanoid-robotics-book/docs/foundations/core-subsystems",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/foundations/core-subsystems.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Core Subsystems of a Humanoid Robot",
+    "description": "Understanding the essential components that enable humanoid robots to function and interact with their environment.",
+    "keywords": [
+      "humanoid",
+      "subsystems",
+      "locomotion",
+      "manipulation",
+      "perception",
+      "cognition",
+      "power",
+      "communication"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "What is Humanoid Robotics?",
+    "permalink": "/Humanoid-robotics-book/docs/foundations/what-is-humanoid-robotics"
+  },
+  "next": {
+    "title": "Modern Examples of Humanoid Robots",
+    "permalink": "/Humanoid-robotics-book/docs/foundations/modern-examples"
+  }
+}

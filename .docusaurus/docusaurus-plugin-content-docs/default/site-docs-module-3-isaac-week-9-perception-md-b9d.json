@@ -1,0 +1,24 @@
+{
+  "id": "module-3-isaac/week-9-perception",
+  "title": "Week 9: Advanced Perception (Isaac ROS)",
+  "description": "Overview",
+  "source": "@site/docs/module-3-isaac/week-9-perception.md",
+  "sourceDirName": "module-3-isaac",
+  "slug": "/module-3-isaac/week-9-perception",
+  "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/week-9-perception",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/module-3-isaac/week-9-perception.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Week 8: The Digital Twin (Isaac Sim & USD)",
+    "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/week-8-isaac-sim"
+  },
+  "next": {
+    "title": "Week 10: Navigation and Mobility",
+    "permalink": "/Humanoid-robotics-book/docs/module-3-isaac/week-10-navigation"
+  }
+}

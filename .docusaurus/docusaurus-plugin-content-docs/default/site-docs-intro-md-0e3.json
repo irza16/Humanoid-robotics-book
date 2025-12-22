@@ -1,0 +1,33 @@
+{
+  "id": "intro",
+  "title": "Introduction to Humanoid Robotics",
+  "description": "Welcome to the comprehensive guide on Physical AI and Humanoid Robotics. This book explores the cutting-edge intersection of AI, robotics, and embodied intelligence.",
+  "source": "@site/docs/intro.md",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/Humanoid-robotics-book/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/irza16/Humanoid-robotics-book/tree/main/docs/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Introduction to Humanoid Robotics",
+    "description": "Welcome to the comprehensive guide on Physical AI and Humanoid Robotics. This book explores the cutting-edge intersection of AI, robotics, and embodied intelligence.",
+    "keywords": [
+      "humanoid robotics",
+      "physical ai",
+      "embodied intelligence",
+      "ros2",
+      "openai",
+      "llm"
+    ]
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Module 0: Foundations Overview",
+    "permalink": "/Humanoid-robotics-book/docs/foundations/overview"
+  }
+}
