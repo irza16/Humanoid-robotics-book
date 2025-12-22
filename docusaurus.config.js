@@ -1,6 +1,6 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-const isVercel = process.env.VERCEL === '1';
+const isVercel = process.env.VERCEL === '1' || process.env.DEPLOYMENT_PLATFORM === 'VERCEL';
 
 const {themes} = require('prism-react-renderer');
 const lightCodeTheme = themes.github;
@@ -12,11 +12,11 @@ const config = {
   tagline: 'From Digital AI to Embodied Intelligence',
   favicon: '/img/favicon.svg',
 
-url: isVercel
-  ? 'https://humanoid-robotics-book-i0uddyw-irzas-projects-515d0e8.vercel.app'
+url: process.env.DEPLOYMENT_PLATFORM === 'VERCEL' || process.env.VERCEL === '1'
+  ? (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : 'https://humanoid-robotics-book-i0uddyw-irzas-projects-515d0e8.vercel.app')
   : 'https://irza16.github.io',
 
-baseUrl: isVercel ? '/' : '/Humanoid-robotics-book/',
+baseUrl: (process.env.DEPLOYMENT_PLATFORM === 'VERCEL' || process.env.VERCEL === '1') ? '/' : '/Humanoid-robotics-book/',
 
 
   // GitHub pages deployment config.
