@@ -26,11 +26,12 @@ baseUrl: (process.env.DEPLOYMENT_PLATFORM === 'VERCEL' || process.env.VERCEL ===
   trailingSlash: false,
 
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  // onBrokenMarkdownLinks has been moved to markdown.hooks section below
 
   // Markdown configuration (fixes deprecation warning)
   markdown: {
     mermaid: true,
+    // Moved from deprecated siteConfig.onBrokenMarkdownLinks
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },

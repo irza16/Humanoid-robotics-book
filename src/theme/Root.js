@@ -40,7 +40,9 @@ export default function Root({ children }) {
       const scripts = document.getElementsByTagName('script');
       for (let i = 0; i < scripts.length; i++) {
         if (scripts[i].src && scripts[i].src.includes('chatbot-widget.js')) {
-          document.body.removeChild(scripts[i]);
+          if (scripts[i].parentNode) {
+            scripts[i].parentNode.removeChild(scripts[i]);
+          }
           console.log('Removed chatbot widget script');
           break;
         }
@@ -48,5 +50,5 @@ export default function Root({ children }) {
     };
   }, []);
 
-  return <>{children};
+  return <>{children}</>;
 }
