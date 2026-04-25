@@ -64,20 +64,20 @@ except Exception as e:
 
 app = FastAPI(title="RAG Chatbot API", version="1.0.0")
 
-# Configure CORS to allow all origins, methods, headers, and credentials
+# Configure CORS to allow requests from deployment domains
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://irza16.github.io",
         "https://humanoid-robotics-book-sand-phi.vercel.app",
         "http://localhost:3000",
-        "http://localhost:8000"
+        "http://localhost:8000",
+        "http://localhost"
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    # Additional options for better CORS handling
-    allow_origin_regex=None,
+    allow_origin_regex=r"https?://.*vercel\.app.*",  # Allow any Vercel deployment
     expose_headers=["*"],
     max_age=86400,  # Cache preflight for 24 hours to reduce preflight requests
 )
