@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 from typing import List, Optional
+import os
 
 
 class Settings(BaseSettings):
@@ -12,6 +13,7 @@ class Settings(BaseSettings):
     qdrant_api_key: Optional[str] = None
 
     # Database Configuration (Optional for basic functionality)
+    # Support both NEON_DATABASE_URL and DATABASE_URL (for HF Spaces compatibility)
     neon_database_url: Optional[str] = None
 
     # Security
@@ -39,6 +41,12 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = False
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        # For HF Spaces and other platforms, fallback to DATABASE_URL if NEON_DATABASE_URL not set
+        if not self.neon_database_url and os.environ.get('DATABASE_URL'):
+            self.neon_database_url = os.environ.get('DATABASE_URL')
 
 
 # Create a singleton instance
