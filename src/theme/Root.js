@@ -3,10 +3,23 @@ import React, { useEffect } from 'react';
 // Docusaurus Root component to integrate the chatbot widget
 export default function Root({ children }) {
   useEffect(() => {
-    // Determine the correct script path based on the host
+    // Determine the correct script path and backend URL based on the host
     const isGitHubPages = window.location.hostname.includes('github.io');
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     const scriptPath = isGitHubPages ? '/Humanoid-robotics-book/chatbot-widget.js' : '/chatbot-widget.js';
-    const backendUrl = isGitHubPages ? 'https://huggingface.co/spaces/irza1/humanoid-robotics-chatbot-backend' : 'http://localhost:8000';
+    
+    let backendUrl;
+    if (isLocalhost) {
+      backendUrl = 'http://localhost:8000';
+    } else if (isGitHubPages) {
+      backendUrl = 'https://huggingface.co/spaces/irza1/humanoid-robotics-chatbot-backend';
+    } else {
+      // Vercel or other deployments
+      backendUrl = 'https://huggingface.co/spaces/irza1/humanoid-robotics-chatbot-backend';
+    }
+
+    // Set global variable for the chatbot widget to access
+    window.CHATBOT_BACKEND_URL = backendUrl;
 
     // Check if script is already loaded to prevent duplicates
     const existingScript = document.querySelector(`script[src="${scriptPath}"]`);
@@ -17,7 +30,6 @@ export default function Root({ children }) {
       script.async = true;
       script.onload = () => {
         console.log('Chatbot widget script loaded successfully');
-        // The chatbot widget should now use the configured backend URL
       };
       // Set the backend URL as a data attribute on the script for the widget to use
       script.setAttribute('data-backend-url', backendUrl);
@@ -25,7 +37,7 @@ export default function Root({ children }) {
         console.error('Failed to load chatbot widget script');
       };
       // Add console log to verify script is being added
-      console.log('Adding chatbot widget script to page from:', script.src);
+      console.log('Adding chatbot widget script to page from:', script.src, 'Backend:', backendUrl);
       document.body.appendChild(script);
     } else {
       console.log('Chatbot widget script already exists');

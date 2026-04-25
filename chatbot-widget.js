@@ -7,14 +7,22 @@
     // Configuration
     const CONFIG = {
         backendUrl: (function() {
-            // Try to get backend URL from data attribute on script tag, or use default
+            // First try to get from global variable set by Root.js
+            if (window.CHATBOT_BACKEND_URL) {
+                console.log('Using backend URL from global variable:', window.CHATBOT_BACKEND_URL);
+                return window.CHATBOT_BACKEND_URL;
+            }
+            // Try to get backend URL from data attribute on script tag
             const script = document.querySelector('script[src*="chatbot-widget.js"]');
             if (script && script.dataset.backendUrl) {
+                console.log('Using backend URL from data attribute:', script.dataset.backendUrl);
                 return script.dataset.backendUrl;
             }
-            // Default to Railway URL, but also check if we're in development
+            // Fallback: detect environment
             const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            return isLocalhost ? 'http://localhost:8000' : 'https://huggingface.co/spaces/irza1/humanoid-robotics-chatbot-backend';
+            const defaultUrl = isLocalhost ? 'http://localhost:8000' : 'https://huggingface.co/spaces/irza1/humanoid-robotics-chatbot-backend';
+            console.log('Using default backend URL:', defaultUrl);
+            return defaultUrl;
         })(),
         maxMessageLength: 2000,
         maxSelectedTextLength: 5000
