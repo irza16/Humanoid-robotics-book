@@ -3,22 +3,23 @@ import React, { useEffect } from 'react';
 // Docusaurus Root component to integrate the chatbot widget
 export default function Root({ children }) {
   useEffect(() => {
+    // Determine the correct script path based on the host
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const scriptPath = isGitHubPages ? '/Humanoid-robotics-book/chatbot-widget.js' : '/chatbot-widget.js';
+    const backendUrl = isGitHubPages ? 'https://huggingface.co/spaces/irza1/humanoid-robotics-chatbot-backend' : 'http://localhost:8000';
+
     // Check if script is already loaded to prevent duplicates
-    const existingScript = document.querySelector('script[src="/Humanoid-robotics-book/chatbot-widget.js"]');
+    const existingScript = document.querySelector(`script[src="${scriptPath}"]`);
     if (!existingScript) {
       // Load the chatbot widget script dynamically
       const script = document.createElement('script');
-      // When Docusaurus serves with baseUrl, static files are available at baseUrl path
-      script.src = '/Humanoid-robotics-book/chatbot-widget.js'; // Served from static directory relative to base URL
+      script.src = scriptPath;
       script.async = true;
       script.onload = () => {
         console.log('Chatbot widget script loaded successfully');
         // The chatbot widget should now use the configured backend URL
       };
       // Set the backend URL as a data attribute on the script for the widget to use
-      // Use production URL for GitHub Pages, localhost for development
-      const isGitHubPages = window.location.hostname.includes('github.io');
-      const backendUrl = isGitHubPages ? 'https://huggingface.co/spaces/irza1/humanoid-robotics-chatbot-backend' : 'http://localhost:8000';
       script.setAttribute('data-backend-url', backendUrl);
       script.onerror = () => {
         console.error('Failed to load chatbot widget script');
