@@ -67,7 +67,12 @@ app = FastAPI(title="RAG Chatbot API", version="1.0.0")
 # Configure CORS to allow all origins, methods, headers, and credentials
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://irza16.github.io", "http://localhost:3000", "http://localhost:8000"],
+    allow_origins=[
+        "https://irza16.github.io",
+        "https://humanoid-robotics-book-sand-phi.vercel.app",
+        "http://localhost:3000",
+        "http://localhost:8000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
