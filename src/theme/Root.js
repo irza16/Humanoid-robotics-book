@@ -11,11 +11,9 @@ export default function Root({ children }) {
     let backendUrl;
     if (isLocalhost) {
       backendUrl = 'http://localhost:8000';
-    } else if (isGitHubPages) {
-      backendUrl = 'https://huggingface.co/spaces/irza1/humanoid-robotics-chatbot-backend';
     } else {
-      // Vercel or other deployments
-      backendUrl = 'https://huggingface.co/spaces/irza1/humanoid-robotics-chatbot-backend';
+      // Use HF Spaces direct API URL (works for all production deployments)
+      backendUrl = 'https://irza1-humanoid-robotics-book-chatbot.hf.space';
     }
 
     // Set global variable for the chatbot widget to access

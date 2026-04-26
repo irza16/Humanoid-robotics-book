@@ -20,7 +20,7 @@
             }
             // Fallback: detect environment
             const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const defaultUrl = isLocalhost ? 'http://localhost:8000' : 'https://huggingface.co/spaces/irza1/humanoid-robotics-chatbot-backend';
+            const defaultUrl = isLocalhost ? 'http://localhost:8000' : 'https://irza1-humanoid-robotics-book-chatbot.hf.space';
             console.log('Using default backend URL:', defaultUrl);
             return defaultUrl;
         })(),
